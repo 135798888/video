@@ -606,9 +606,9 @@
           <svg class="full" viewBox="0 0 1920 1080">
             <defs>${lampDefs}${dropDefs("dg7")}</defs>
             <g id="s7-houses">${house(260, 380, 420, 380)}${house(780, 340, 480, 420)}${house(1360, 390, 400, 370)}</g>
-            <rect x="0" y="780" width="1920" height="40" fill="#b8b5aa" opacity="0.8"/>
-            ${[...Array(12)].map((_, i) => `<rect x="${60 + i * 160}" y="790" width="120" height="22" rx="4" fill="#8d8b82" opacity="0.7"/>`).join("")}
-            <path d="M0 860 C 400 840 900 880 1920 850 L1920 1080 L0 1080 Z" fill="#9db3b4" opacity="0.6"/>
+            <rect x="0" y="780" width="2100" height="40" fill="#b8b5aa" opacity="0.8"/>
+            ${[...Array(13)].map((_, i) => `<rect x="${60 + i * 160}" y="790" width="120" height="22" rx="4" fill="#8d8b82" opacity="0.7"/>`).join("")}
+            <path d="M0 860 C 400 840 900 880 2100 850 L2100 1080 L0 1080 Z" fill="#9db3b4" opacity="0.6"/>
             <g id="s7-flow" stroke="#e8eeec" stroke-width="3" opacity="0.8" fill="none">${[...Array(10)].map((_, i) => `<path d="M${i * 220} ${900 + (i % 3) * 40} q 40 -6 80 0"/>`).join("")}</g>
             ${eaveDrops.map((x, i) => `<g class="s7-d" id="s7-d${i}"><circle cx="${x}" cy="${i % 2 ? 470 : 500}" r="7" fill="url(#dg7)"/></g>`).join("")}
           </svg>`);
@@ -773,7 +773,7 @@
           </div>`);
         tl.fromTo("#s15-in", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.8, ease: "sine.out", transformOrigin: "960px 600px" }, 93.6)
           .fromTo(".s15-r", { scale: 0.2, opacity: 0.9, transformOrigin: "50% 50%" }, { scale: 2, opacity: 0, duration: 2, ease: "sine.out", stagger: { each: 0.6, repeat: 3 } }, B(154))
-          .fromTo("#s15-pan", { x: 0 }, { x: -1700, duration: 19.4, ease: "sine.inOut" }, 93.6)
+          .fromTo("#s15-pan", { x: 0 }, { x: -1640, duration: 19.4, ease: "sine.inOut" }, 93.6)
           .fromTo("#s15-flow", { x: 0 }, { x: 420, duration: 19.4, ease: "none" }, 93.6)
           .fromTo("#s15-dl", { scaleX: 1, transformOrigin: "0px 0px" }, { scaleX: 0.25, duration: 1.4, ease: "sine.inOut" }, 103.6)
           .fromTo("#s15-dr", { scaleX: 1, transformOrigin: "38px 0px" }, { scaleX: 0.25, duration: 1.4, ease: "sine.inOut" }, 103.6)
