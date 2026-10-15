@@ -1,0 +1,912 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>一滴水的远方 — A Drop's Journey</title>
+    <script src="vendor/gsap.min.js"></script>
+    <style>
+      /*FONTS*/
+      @font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(fonts/noto-serif-sc-62-600-normal.woff2) format('woff2');
+  unicode-range: U+69fe-6a01,U+6a06,U+6a09,U+6a0b,U+6a11,U+6a13,U+6a17-6a19,U+6a1b,U+6a1e,U+6a23,U+6a28-6a29,U+6a2b,U+6a2f-6a30,U+6a35,U+6a38-6a40,U+6a46-6a48,U+6a4a-6a4b,U+6a4e,U+6a50,U+6a52,U+6a5b,U+6a5e,U+6a62,U+6a65-6a67,U+6a6b,U+6a79,U+6a7c,U+6a7e-6a7f,U+6a84,U+6a86,U+6a8e,U+6a90-6a91,U+6a94,U+6a97,U+6a9c,U+6a9e,U+6aa0,U+6aa2,U+6aa4,U+6aa9,U+6aab,U+6aae-6ab0,U+6ab2-6ab3,U+6ab5,U+6ab7-6ab8,U+6aba-6abb,U+6abd,U+6abf,U+6ac2-6ac4,U+6ac6,U+6ac8,U+6acc,U+6ace,U+6ad2-6ad3,U+6ad8-6adc,U+6adf-6ae0,U+6ae4-6ae5,U+6ae7-6ae8,U+6afb,U+6b04-6b05,U+6b0d-6b13,U+6b16-6b17,U+6b19,U+6b24-6b25,U+6b2c,U+6b37-6b39,U+6b3b,U+6b3d,U+6b43,U+6b46,U+6b4e,U+6b50,U+6b53-6b54,U+6b58-6b59,U+6b5b,U+6b60,U+6b69,U+6b6d,U+6b6f-6b70,U+6b73-6b74,U+6b77-6b7a,U+6b80-6b82;
+}
+      @font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(fonts/noto-serif-sc-100-600-normal.woff2) format('woff2');
+  unicode-range: U+221a,U+2264,U+2464,U+25a0,U+3008,U+4e10,U+512a,U+5152,U+5201,U+5241,U+5340,U+5352,U+549a,U+54b2,U+54c6,U+54d7,U+54e1,U+5509,U+55c5,U+5618,U+5716,U+576f,U+5784,U+57a2,U+589f,U+5a20,U+5a25,U+5a29,U+5a34,U+5a7f,U+5ad6,U+5b09,U+5b5c,U+5bc7,U+5be6,U+5c27,U+5d2d,U+5dcd,U+5f1b,U+5f37,U+604d,U+6055,U+6073,U+60eb,U+61ff,U+62ce,U+62ed,U+6345,U+6390,U+63b0,U+63b7,U+64ae,U+64c2,U+64d2,U+6556,U+663c,U+667e,U+66d9,U+66f8,U+6756,U+6789,U+689d,U+68f1,U+695e,U+6975,U+6a1f,U+6b0a,U+6b61,U+6b87,U+6c5d,U+6c7e,U+6c92,U+6d31,U+6df9,U+6e0d,U+6e2d,U+6f31,U+6f3e,U+70b3,U+70bd,U+70ca,U+70e8,U+725f,U+733f,U+7396,U+739f,U+7459,U+74a7,U+75a1,U+75f0,U+76cf,U+76d4,U+7729,U+77aa,U+77b0,U+77e3,U+780c,U+78d5,U+7941,U+7977,U+797a,U+79c3,U+7a20,U+7a92,U+7b71,U+7bf1,U+7c9f,U+7eb6,U+7eca,U+7ef7,U+7f07,U+7f09,U+7f15,U+7f81,U+7fb9,U+8038,U+8098,U+80b4,U+8110,U+814b-814c,U+816e,U+818a,U+8205,U+8235,U+828b,U+82a5,U+82b7,U+82d4,U+82db,U+82df,U+8317,U+8338,U+8385-8386,U+83c1,U+83cf,U+8537,U+853b,U+854a,U+8715,U+8783,U+892a,U+8a71,U+8bb3,U+8d2e,U+8d58,U+8dbe,U+8f67,U+8fab,U+8fc4,U+8fe6,U+9023,U+9084,U+9091,U+916a,U+91c9,U+91dc,U+94b3,U+9502,U+9523,U+9551,U+956f,U+960e,U+962a,U+962e,U+9647,U+96f3,U+9739,U+97a0,U+97ed,U+983b,U+985e,U+988a,U+99ac,U+9a6f,U+9a87,U+9a8b,U+9ab7,U+9abc,U+9ac5,U+9e25,U+e608,U+e621,U+ff06,U+ff14-ff16;
+}
+      @font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(fonts/noto-serif-sc-104-600-normal.woff2) format('woff2');
+  unicode-range: U+2003,U+2193,U+2462,U+4e19,U+4e2b,U+4e36,U+4ea8,U+4ed1,U+4ed7,U+4f51,U+4f63,U+4f83,U+50e7,U+5112,U+5167,U+51a4,U+51b6,U+5239,U+5265,U+532a,U+5351,U+537f,U+5401,U+548f,U+5492,U+54af,U+54b3,U+54bd,U+54d1,U+54df,U+554f,U+5564,U+5598,U+5632,U+56a3,U+56e7,U+574e,U+575d-575e,U+57d4,U+584c,U+58e4,U+5937,U+5955,U+5a05,U+5a1f,U+5a49,U+5ac2,U+5c39,U+5c61,U+5d0e,U+5de9,U+5e9a,U+5eb8,U+5f0a,U+5f13,U+5f6c,U+5f8c,U+603c,U+608d,U+611b,U+6127,U+62a0,U+62d0,U+634f,U+635e,U+63fd,U+6577,U+658b,U+65bc,U+660a,U+6643,U+6656,U+6703,U+6760,U+67af,U+67c4,U+67e0,U+6817,U+68cd,U+690e,U+6960,U+69b4,U+6a71,U+6aac,U+6b67,U+6bb4,U+6c55,U+6c70,U+6c82,U+6ca6,U+6cb8,U+6cbe,U+6ede,U+6ee5,U+6f4d,U+6f84,U+6f9c,U+7115,U+7121,U+722a,U+7261,U+7272,U+7280,U+72f8,U+7504,U+754f,U+75d8,U+767c,U+76ef,U+778e,U+77bb,U+77f6,U+786b,U+78b1,U+7948,U+7985,U+79be,U+7a83,U+7a8d,U+7eac,U+7eef,U+7ef8,U+7efd,U+7f00,U+803d,U+8086,U+810a,U+8165,U+819d,U+81a8,U+8214,U+829c,U+831c,U+832b,U+8367,U+83e0,U+83f1,U+8403,U+846b,U+8475,U+84b2,U+8513,U+8574,U+85af,U+86d9,U+86db,U+8acb,U+8bbd,U+8be0-8be1,U+8c0e,U+8d29,U+8d50,U+8d63,U+8f7f,U+9032,U+9042,U+90b1,U+90b5,U+9165,U+9175,U+94a6,U+94c5,U+950c,U+9610,U+9631,U+9699,U+973e,U+978d,U+97ec,U+97f6,U+984c,U+987d,U+9882,U+9965,U+996a,U+9972,U+9a8f,U+9ad3,U+9ae6,U+9cb8,U+9edb,U+e600,U+e60f,U+e611,U+ff05,U+ff0b;
+}
+      @font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(fonts/noto-serif-sc-106-600-normal.woff2) format('woff2');
+  unicode-range: U+b0,U+2191,U+2460-2461,U+25c6,U+300e-300f,U+4e1b,U+4e7e,U+4ed5,U+4ef2,U+4f10,U+4f1e,U+4f50,U+4fa6,U+4faf,U+5021,U+50f5,U+5179,U+5180,U+51d1,U+522e,U+52a3,U+52c3,U+52cb,U+5300,U+5319,U+5320,U+5349,U+5395,U+53d9,U+541e,U+5428,U+543e,U+54b1,U+54c0,U+54d2,U+570b,U+5858,U+58f6,U+5974,U+59a5,U+59e8,U+59ec,U+5a36,U+5a9a,U+5ab3,U+5b99,U+5baa,U+5ce1,U+5d14,U+5d4c,U+5dc5,U+5de2,U+5e99,U+5e9e,U+5f18,U+5f66,U+5f70,U+6070,U+60d5,U+60e7,U+6101,U+611a,U+61be,U+6241,U+6252,U+626f,U+6296,U+62bc,U+62cc,U+6380,U+63a9,U+644a,U+6454,U+64a9,U+64b8,U+6500,U+6572,U+65a5,U+65a9,U+65ec,U+660f,U+6749,U+6795,U+67ab,U+68da,U+6912,U+6bbf,U+6bef,U+6cab,U+6cca,U+6ccc,U+6cfc,U+6d3d,U+6d78,U+6dee,U+6e17,U+6e34,U+6e83,U+6ea2,U+6eb6,U+6f20,U+6fa1,U+707f,U+70d8,U+70eb,U+714c,U+714e,U+7235,U+7239,U+73ca,U+743c,U+745c,U+7624,U+763e,U+76f2,U+77db,U+77e9,U+780d,U+7838,U+7845,U+78ca,U+796d,U+7a84,U+7aed,U+7b3c,U+7eb2,U+7f05,U+7f20,U+7f34,U+7f62,U+7fc5,U+7fd8,U+7ff0,U+800d,U+8036,U+80ba,U+80be,U+80c0-80c1,U+8155,U+817a,U+8180,U+81e3,U+8206,U+8247,U+8270,U+8299,U+82ad,U+8304,U+8393,U+83b9,U+840d,U+8427,U+8469,U+8471,U+84c4,U+84ec,U+853d,U+8681-8682,U+8721,U+8854,U+88d5,U+88f9,U+8bc0,U+8c0a,U+8c29,U+8c2d,U+8d41,U+8dea,U+8eb2,U+8f9f,U+903b,U+903e,U+9102,U+9493,U+94a5,U+94f8,U+95f7,U+9706,U+9709,U+9774,U+98a0,U+9e64,U+9f9f,U+e603;
+}
+      @font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(fonts/noto-serif-sc-108-600-normal.woff2) format('woff2');
+  unicode-range: U+24,U+4e08,U+4e43,U+4e4f,U+4ef0,U+4f2a,U+507f,U+50ac,U+50bb,U+5151,U+51bb,U+51f6,U+51fd,U+5272,U+52fe,U+5362,U+53c9,U+53d4,U+53e0,U+543b,U+54f2,U+5507,U+5524,U+558a,U+55b5,U+561b,U+56ca,U+5782,U+57c3,U+5893,U+5915,U+5949,U+5962,U+59ae,U+59dc,U+59fb,U+5bd3,U+5c38,U+5cb3,U+5d07,U+5d29,U+5de1,U+5dfe,U+5e15,U+5eca,U+5f2f,U+5f7c,U+5fcc,U+6021,U+609f,U+60f9,U+6108,U+6148,U+6155,U+6170,U+61d2,U+6251,U+629b,U+62ab,U+62e8,U+62f3,U+6321,U+6350,U+6566,U+659c,U+65e8,U+6635,U+6655,U+6670,U+66f9,U+6734,U+679d,U+6851,U+6905,U+6b49,U+6b96,U+6c1b,U+6c41,U+6c6a,U+6c83,U+6cf3,U+6d9b,U+6dcb,U+6e1d,U+6e20-6e21,U+6eaa,U+6ee4,U+6ee9,U+6f58,U+70e4,U+722c,U+7262,U+7267,U+72b9,U+72e0,U+72ee,U+72f1,U+7334,U+73ab,U+7433,U+7470,U+758f,U+75d5,U+764c,U+7686,U+76c6,U+76fe,U+7720,U+77e2,U+7802,U+7816,U+788d,U+7891,U+7a00,U+7a9d,U+7b52,U+7bad,U+7c98,U+7cca,U+7eba,U+7eea,U+7ef5,U+7f1d,U+7f69,U+806a,U+809a,U+80bf,U+80c3,U+81c0,U+820c,U+82ac,U+82af,U+82cd,U+82d7,U+838e,U+839e,U+8404,U+84b8,U+852c,U+8587,U+8650,U+8679,U+86c7,U+8702,U+87ba,U+886b-886c,U+8870,U+8c10,U+8c23,U+8c6b,U+8d3e,U+8d4b-8d4c,U+8d64,U+8d6b,U+8d74,U+8e29,U+8f69,U+8f74,U+8fb0,U+8fdf,U+901b,U+9038,U+9093,U+9171,U+9489,U+94ae,U+94c3,U+9508,U+9510,U+9601,U+9614,U+964c,U+9675,U+971c,U+97f5,U+9888,U+98d8,U+9971,U+9aa4,U+9e3f,U+9e45,U+9e4f,U+9e70,U+9f7f,U+e715;
+}
+      @font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(fonts/noto-serif-sc-109-600-normal.woff2) format('woff2');
+  unicode-range: U+a5,U+2192,U+2605,U+4e11,U+4e22,U+4e32,U+4f0d,U+4f0f,U+4f69,U+4ff1,U+50b2,U+5154,U+51dd,U+51f0,U+5211,U+5269,U+533f,U+5366-5367,U+5389,U+5413,U+5440,U+5446,U+5561,U+574a,U+5751,U+57ab,U+5806,U+5821,U+582a,U+58f3,U+5938,U+5948,U+5978,U+59d1,U+5a03,U+5a07,U+5ac1,U+5acc,U+5ae9,U+5bb4,U+5bc4,U+5c3f,U+5e3d,U+5e7d,U+5f92,U+5faa,U+5fe0,U+5ffd,U+6016,U+60a0,U+60dc,U+60e8,U+614e,U+6212,U+6284,U+62c6,U+62d3-62d4,U+63f4,U+642c,U+6478,U+6491-6492,U+64e6,U+6591,U+65a4,U+664b,U+6735,U+6746,U+67f1,U+67f3,U+6842,U+68af,U+68c9,U+68cb,U+6a31,U+6b3a,U+6bc1,U+6c0f,U+6c27,U+6c57,U+6cc4,U+6ce5,U+6d2a,U+6d66,U+6d69,U+6daf,U+6e58,U+6ecb,U+6ef4,U+707e,U+7092,U+70ab,U+71d5,U+7275,U+7384,U+73b2,U+7434,U+74e6,U+74f7,U+75bc,U+76c8,U+76d0,U+7709,U+77ac,U+7855,U+78a7,U+78c1,U+7a77,U+7b79,U+7c92,U+7cae,U+7cd5,U+7ea4,U+7eb5,U+7ebd,U+7f5a,U+7fd4,U+7ffc,U+8083,U+8096,U+80a0,U+80d6,U+80de,U+8102,U+8109,U+810f,U+8179,U+8292,U+82b3,U+8352,U+8361,U+83cc,U+841d,U+8461,U+8482,U+8521,U+857e,U+85aa,U+866b,U+8776,U+8896,U+889c,U+88f8,U+8a9e,U+8bc8,U+8bf8,U+8c0b,U+8c28,U+8d2b,U+8d2f,U+8d37,U+8d3a,U+8d54,U+8dc3,U+8dcc,U+8df5,U+8e0f,U+8e48,U+8f86,U+8f88,U+8f9e,U+8fc1,U+8fc8,U+8feb,U+9065,U+90a6,U+90aa,U+90bb,U+90c1,U+94dc,U+9521,U+9676,U+96d5,U+970d,U+9897,U+997c,U+9a70,U+9a76,U+9a9a,U+9ad4,U+9e23,U+9e7f,U+9f3b,U+e675,U+e6b9,U+ffe5;
+}
+      @font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(fonts/noto-serif-sc-110-600-normal.woff2) format('woff2');
+  unicode-range: U+300c-300d,U+4e54,U+4e58,U+4e95,U+4ec1,U+4f2f,U+4f38,U+4fa3,U+4fca,U+503e,U+5141,U+5144,U+517c,U+51cc,U+51ed,U+5242,U+52b2,U+52d2,U+52e4,U+540a,U+5439,U+5448,U+5496,U+54ed,U+5565,U+5761,U+5766,U+58ee,U+593a,U+594b,U+594f,U+5954,U+5996,U+59c6,U+59ff,U+5b64,U+5bff,U+5c18,U+5c1d,U+5c97,U+5ca9,U+5cb8,U+5e9f,U+5ec9,U+5f04,U+5f7b,U+5fa1,U+5fcd,U+6012,U+60a6,U+60ac,U+60b2,U+60ef,U+626e,U+6270,U+6276,U+62d6,U+62dc,U+6316,U+632f,U+633a,U+6355,U+63aa,U+6447,U+649e,U+64c5,U+654c,U+65c1,U+65cb,U+65e6,U+6606,U+6731,U+675c,U+67cf,U+67dc,U+6846,U+6b8b,U+6beb,U+6c61,U+6c88,U+6cbf,U+6cdb,U+6cea,U+6d45,U+6d53,U+6d74,U+6d82,U+6da8,U+6db5,U+6deb,U+6eda,U+6ee8,U+6f0f,U+706d,U+708e,U+70ae,U+70bc,U+70c2,U+70e6,U+7237-7238,U+72fc,U+730e,U+731b,U+739b,U+73bb,U+7483,U+74dc,U+74f6,U+7586,U+7626,U+775b,U+77ff,U+788e,U+78b0,U+7956,U+7965,U+79e6,U+7af9,U+7bee,U+7c97,U+7eb1,U+7eb7,U+7ed1,U+7ed5,U+7f6a,U+7f72,U+7fbd,U+8017,U+808c,U+80a9,U+80c6,U+80ce,U+8150,U+8170,U+819c,U+820d,U+8230,U+8239,U+827e,U+8377,U+8389,U+83b2,U+8428,U+8463,U+867e,U+88c2,U+88d9,U+8986,U+8bca,U+8bde,U+8c13,U+8c8c,U+8d21,U+8d24,U+8d56,U+8d60,U+8d8b,U+8db4,U+8e2a,U+8f68,U+8f89,U+8f9b,U+8fa8,U+8fbd,U+9003,U+90ce,U+90ed,U+9189,U+94bb,U+9505,U+95f9,U+963b,U+9655,U+966a,U+9677,U+96fe,U+9896,U+99a8,U+9a71,U+9a82,U+9a91,U+9b45,U+9ece,U+9f20,U+feff,U+ff0d;
+}
+      @font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(fonts/noto-serif-sc-111-600-normal.woff2) format('woff2');
+  unicode-range: U+4e4c,U+4e88,U+4ea1,U+4ea6,U+4ed3-4ed4,U+4eff,U+4f30,U+4fa7,U+4fc4,U+4fd7,U+500d,U+504f,U+5076-5077,U+517d,U+5192,U+51c9,U+51ef,U+5238,U+5251,U+526a,U+52c7,U+52df,U+52ff,U+53a6,U+53a8,U+53ec,U+5410,U+559d,U+55b7,U+5634,U+573e,U+5783,U+585e,U+586b,U+58a8,U+5999,U+59d3,U+5a1c,U+5a46,U+5b54-5b55,U+5b85,U+5b8b,U+5b8f,U+5bbf,U+5bd2,U+5c16,U+5c24,U+5e05,U+5e45,U+5e7c,U+5e84,U+5f03,U+5f1f,U+5f31,U+5f84,U+5f90,U+5fbd,U+5fc6,U+5fd9,U+5fe7,U+6052,U+6062,U+6089,U+60a3,U+60d1,U+6167,U+622a,U+6234,U+624e,U+6269,U+626c,U+62b5,U+62d2,U+6325,U+63e1,U+643a,U+6446,U+6562,U+656c,U+65e2,U+65fa,U+660c,U+6628,U+6652,U+6668,U+6676,U+66fc,U+66ff,U+6717,U+676d,U+67aa,U+67d4,U+6843,U+6881,U+68d2,U+695a,U+69fd,U+6a2a,U+6b8a,U+6c60,U+6c64,U+6c9f,U+6caa,U+6cc9,U+6ce1,U+6cfd,U+6d1b,U+6d1e,U+6d6e,U+6de1,U+6e10,U+6e7f,U+6f5c,U+704c,U+7070,U+7089,U+70b8,U+718a,U+71c3,U+723d,U+732a,U+73cd,U+7518,U+756a,U+75af,U+75be,U+75c7,U+76d2,U+76d7,U+7763,U+78e8,U+795d,U+79df,U+7c4d,U+7d2f,U+7ee9,U+7f13,U+7f8a,U+8000,U+8010,U+80af,U+80f6,U+80f8,U+8212,U+8273,U+82f9,U+83ab,U+83b1,U+83f2,U+8584,U+871c,U+8861,U+888b,U+88c1,U+88e4,U+8bd1,U+8bf1,U+8c31,U+8d5a,U+8d75-8d76,U+8de8,U+8f85,U+8fa3,U+8fc5,U+9006,U+903c,U+904d,U+9075,U+9178,U+9274,U+950b,U+9526,U+95ea,U+9636,U+9686,U+978b,U+987f,U+9a7e,U+9b42,U+9e1f,U+9ea6,U+9f13,U+9f84,U+ff5e;
+}
+      @font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(fonts/noto-serif-sc-112-600-normal.woff2) format('woff2');
+  unicode-range: U+23,U+3d,U+4e01,U+4e39,U+4e73,U+4ecd,U+4ed9,U+4eea,U+4f0a,U+4f1f,U+4f5b,U+4fa0,U+4fc3,U+501f,U+50a8,U+515a,U+5175,U+51a0,U+51c0,U+51e1,U+51e4,U+5200,U+520a,U+5224,U+523a,U+52aa,U+52b1,U+52b3,U+5348,U+5353,U+5360,U+5371,U+5377,U+539a,U+541b,U+5434,U+547c,U+54e6,U+5510,U+5531,U+5609,U+56f0,U+56fa,U+5733,U+574f,U+5851,U+5854,U+5899,U+58c1,U+592e,U+5939,U+5976,U+5986,U+59bb,U+5a18,U+5a74,U+5b59,U+5b87,U+5b97,U+5ba0,U+5bab,U+5bbd-5bbe,U+5bf8,U+5c0a,U+5c3a,U+5c4a,U+5e16,U+5e1d,U+5e2d,U+5e8a,U+6015,U+602a,U+6050,U+6069,U+6162,U+61c2,U+6293,U+6297,U+62b1,U+62bd,U+62df,U+62fc,U+6302,U+635f,U+638c,U+63ed,U+6458,U+6469,U+6563,U+6620,U+6653,U+6696-6697,U+66dd,U+675f,U+676f-6770,U+67d0,U+67d3,U+684c,U+6865,U+6885,U+68b0,U+68ee,U+690d,U+6b23,U+6b32,U+6bd5,U+6c89,U+6d01,U+6d25,U+6d89,U+6da6,U+6db2,U+6df7,U+6ed1,U+6f02,U+70c8,U+70df,U+70e7,U+7126,U+7236,U+7259,U+731c,U+745e,U+74e3,U+751a,U+751c,U+7532,U+7545,U+75db,U+7761,U+7a0d,U+7b51,U+7ca4,U+7cd6,U+7d2b,U+7ea0,U+7eb9,U+7ed8,U+7f18,U+7f29,U+8033,U+804a,U+80a4-80a5,U+80e1,U+817f,U+829d,U+82e6,U+8336,U+840c,U+8499,U+864e,U+8651,U+865a,U+88ad,U+89e6,U+8bd7,U+8bfa,U+8c37,U+8d25,U+8d38,U+8ddd,U+8fea,U+9010,U+9012,U+906d,U+907f-9080,U+90d1,U+9177,U+91ca,U+94fa,U+9501,U+9634-9635,U+9694,U+9707,U+9738,U+9769,U+9a7b,U+9a97,U+9aa8,U+9b3c,U+9c81,U+9ed8;
+}
+      @font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(fonts/noto-serif-sc-113-600-normal.woff2) format('woff2');
+  unicode-range: U+26,U+3c,U+d7,U+4e4e,U+4e61,U+4e71,U+4ebf,U+4f26,U+5012,U+51ac,U+51b0,U+51b2,U+51b7,U+5218,U+521a,U+5220,U+5237,U+523b,U+526f,U+5385,U+53bf,U+53e5,U+53eb,U+53f3,U+53f6,U+5409,U+5438,U+54c8,U+54e5,U+552f,U+5584,U+5706,U+5723,U+5750,U+575a,U+5987-5988,U+59b9,U+59d0,U+59d4,U+5b88,U+5b9c,U+5bdf,U+5bfb,U+5c01,U+5c04,U+5c3e,U+5c4b,U+5c4f,U+5c9b,U+5cf0,U+5ddd,U+5de6,U+5de8,U+5e01,U+5e78,U+5e7b,U+5e9c,U+5ead,U+5ef6,U+5f39,U+5fd8,U+6000,U+6025,U+604b,U+6076,U+613f,U+6258,U+6263,U+6267,U+6298,U+62a2,U+62e5,U+62ec,U+6311,U+6377,U+6388-6389,U+63a2,U+63d2,U+641e,U+642d,U+654f,U+6551,U+6597,U+65cf,U+65d7,U+65e7,U+6682,U+66f2,U+671d,U+672b,U+6740,U+6751,U+6768,U+6811,U+6863,U+6982,U+6bd2,U+6cf0,U+6d0b,U+6d17,U+6d59,U+6dd8,U+6dfb,U+6e7e,U+6f6e,U+6fb3,U+706f,U+719f,U+72af,U+72d0,U+72d7,U+732b,U+732e,U+7389,U+73e0,U+7530,U+7687,U+76d6,U+76db,U+7840,U+786c,U+79cb,U+79d2,U+7a0e,U+7a33,U+7a3f,U+7a97,U+7ade-7adf,U+7b26,U+7e41,U+7ec3,U+7f3a,U+8089,U+80dc,U+811a,U+8131,U+8138,U+821e,U+8349,U+83dc,U+8457,U+867d,U+86cb,U+8a89,U+8ba8,U+8bad,U+8bef,U+8bfe,U+8c6a,U+8d1d,U+8d4f,U+8d62,U+8dd1,U+8df3,U+8f6e,U+8ff9,U+900f,U+9014,U+9057,U+9192,U+91ce,U+9488,U+94a2,U+9547,U+955c,U+95f2,U+9644,U+964d,U+96c4-96c5,U+96e8,U+96f6-96f7,U+9732,U+9759,U+9760,U+987a,U+989c,U+9910,U+996d-996e,U+9b54,U+9e21,U+9ebb,U+9f50;
+}
+      @font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(fonts/noto-serif-sc-114-600-normal.woff2) format('woff2');
+  unicode-range: U+7e,U+2026,U+4e03,U+4e25,U+4e30,U+4e34,U+4e45,U+4e5d,U+4e89,U+4eae,U+4ed8,U+4f11,U+4f19,U+4f24,U+4f34,U+4f59,U+4f73,U+4f9d,U+4fb5,U+5047,U+505c,U+5170,U+519c,U+51cf,U+5267,U+5356,U+5374,U+5382,U+538b,U+53e6,U+5426,U+542b,U+542f,U+5462,U+5473,U+554a,U+5566,U+5708,U+571f,U+5757,U+57df,U+57f9,U+5802,U+590f,U+591c,U+591f,U+592b,U+5965,U+5979,U+5a01,U+5a5a,U+5b63,U+5b69,U+5b81,U+5ba1,U+5ba3,U+5c3c,U+5c42,U+5c81,U+5de7,U+5dee,U+5e0c,U+5e10,U+5e55,U+5e86,U+5e8f,U+5ea7,U+5f02,U+5f52,U+5f81,U+5ff5,U+60ca,U+60e0,U+6279,U+62c5,U+62ff,U+63cf,U+6444,U+64cd,U+653b,U+65bd,U+65e9,U+665a,U+66b4,U+66fe,U+6728,U+6742,U+677e,U+67b6,U+680f,U+68a6,U+68c0,U+699c,U+6b4c,U+6b66,U+6b7b,U+6bcd,U+6bdb,U+6c38,U+6c47,U+6c49,U+6cb3,U+6cb9,U+6ce2,U+6d32,U+6d3e,U+6d4f,U+6e56,U+6fc0,U+7075,U+7206,U+725b,U+72c2,U+73ed,U+7565,U+7591,U+7597,U+75c5,U+76ae,U+76d1,U+76df,U+7834,U+7968,U+7981,U+79c0,U+7a7f,U+7a81,U+7ae5,U+7b14,U+7c89,U+7d27,U+7eaf,U+7eb3,U+7eb8,U+7ec7,U+7ee7,U+7eff,U+7f57,U+7ffb,U+805a,U+80a1,U+822c,U+82cf,U+82e5,U+8363,U+836f,U+84dd,U+878d,U+8840,U+8857,U+8863,U+8865,U+8b66,U+8bb2,U+8bda,U+8c01,U+8c08,U+8c46,U+8d1f,U+8d35,U+8d5b,U+8d5e,U+8da3,U+8ddf,U+8f93,U+8fdd,U+8ff0,U+8ff7,U+8ffd,U+9000,U+9047,U+9152,U+949f,U+94c1,U+94f6,U+9646,U+9648,U+9669,U+969c,U+96ea,U+97e9,U+987b,U+987e,U+989d,U+9970,U+9986,U+9c7c,U+9c9c;
+}
+      @font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(fonts/noto-serif-sc-115-600-normal.woff2) format('woff2');
+  unicode-range: U+25,U+4e14,U+4e1d,U+4e3d,U+4e49,U+4e60,U+4e9a,U+4eb2,U+4ec5,U+4efd,U+4f3c,U+4f4f,U+4f8b,U+4fbf,U+5019,U+5145,U+514b,U+516b,U+516d,U+5174,U+5178,U+517b,U+5199,U+519b,U+51b3,U+51b5,U+5207,U+5212,U+5219,U+521d,U+52bf,U+533b,U+5343,U+5347,U+534a,U+536b,U+5370,U+53e4,U+53f2,U+5403,U+542c,U+547d,U+54a8,U+54cd,U+54ea,U+552e,U+56f4,U+5747,U+575b,U+5883,U+589e,U+5931,U+5947,U+5956-5957,U+5a92,U+5b83,U+5ba4,U+5bb3,U+5bcc,U+5c14,U+5c1a,U+5c3d,U+5c40,U+5c45,U+5c5e,U+5df4,U+5e72,U+5e95,U+5f80,U+5f85,U+5fb7,U+5fd7,U+601d,U+626b,U+627f,U+62c9,U+62cd,U+6309,U+63a7,U+6545,U+65ad,U+65af,U+65c5,U+666e,U+667a,U+670b,U+671b,U+674e,U+677f,U+6781,U+6790,U+6797,U+6821,U+6838-6839,U+697c,U+6b27,U+6b62,U+6bb5,U+6c7d,U+6c99,U+6d4b,U+6d4e,U+6d6a,U+6e29,U+6e2f,U+6ee1,U+6f14,U+6f2b,U+72b6,U+72ec,U+7387,U+7533,U+753b,U+76ca,U+76d8,U+7701,U+773c,U+77ed,U+77f3,U+7814,U+793c,U+79bb,U+79c1,U+79d8,U+79ef,U+79fb,U+7a76,U+7b11,U+7b54,U+7b56,U+7b97,U+7bc7,U+7c73,U+7d20,U+7eaa,U+7ec8,U+7edd,U+7eed,U+7efc,U+7fa4,U+804c,U+8058,U+80cc,U+8111,U+817e,U+826f,U+8303,U+843d,U+89c9,U+89d2,U+8ba2,U+8bbf,U+8bc9,U+8bcd,U+8be6,U+8c22,U+8c61,U+8d22,U+8d26-8d27,U+8d8a,U+8f6f,U+8f7b,U+8f83,U+8f91,U+8fb9,U+8fd4,U+8fdc,U+9002,U+94b1,U+9519,U+95ed,U+961f,U+9632-9633,U+963f,U+968f-9690,U+96be,U+9876,U+9884,U+98de,U+9988,U+9999,U+9ec4,U+ff1b;
+}
+      @font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(fonts/noto-serif-sc-116-600-normal.woff2) format('woff2');
+  unicode-range: U+2b,U+40,U+3000,U+300a-300b,U+4e16,U+4e66,U+4e70,U+4e91-4e92,U+4e94,U+4e9b,U+4ec0,U+4eca,U+4f01,U+4f17-4f18,U+4f46,U+4f4e,U+4f9b,U+4fee,U+503c,U+5065,U+50cf,U+513f,U+5148,U+518d,U+51c6,U+51e0,U+5217,U+529e-529f,U+5341,U+534f,U+5361,U+5386,U+53c2,U+53c8,U+53cc,U+53d7-53d8,U+53ea,U+5404,U+5411,U+5417,U+5427,U+5468,U+559c,U+5668,U+56e0,U+56e2,U+56ed,U+5740,U+57fa,U+58eb,U+5904,U+592a,U+59cb,U+5a31,U+5b58,U+5b9d,U+5bc6,U+5c71,U+5dde,U+5df1,U+5e08,U+5e26,U+5e2e,U+5e93,U+5e97,U+5eb7,U+5f15,U+5f20,U+5f3a,U+5f62,U+5f69,U+5f88,U+5f8b,U+5fc5,U+600e,U+620f,U+6218,U+623f,U+627e,U+628a,U+62a4,U+62db,U+62e9,U+6307,U+6362,U+636e,U+64ad,U+6539,U+653f,U+6548,U+6574,U+6613,U+6625,U+663e,U+666f,U+672a,U+6750,U+6784,U+6a21,U+6b3e,U+6b65,U+6bcf,U+6c11,U+6c5f,U+6df1,U+706b,U+7167,U+724c,U+738b,U+73a9,U+73af,U+7403,U+7537,U+754c,U+7559,U+767d,U+7740,U+786e,U+795e,U+798f,U+79f0,U+7aef,U+7b7e,U+7bb1,U+7ea2,U+7ea6,U+7ec4,U+7ec6,U+7ecd,U+7edc,U+7ef4,U+8003,U+80b2,U+81f3-81f4,U+822a,U+827a,U+82f1,U+83b7,U+8425,U+89c2,U+89c8,U+8ba9,U+8bb8,U+8bc6,U+8bd5,U+8be2,U+8be5,U+8bed,U+8c03,U+8d23,U+8d2d,U+8d34,U+8d70,U+8db3,U+8fbe,U+8fce,U+8fd1,U+8fde,U+9001,U+901f-9020,U+90a3,U+914d,U+91c7,U+94fe,U+9500,U+952e,U+9605,U+9645,U+9662,U+9664,U+9700,U+9752,U+975e,U+97f3,U+9879,U+9886,U+98df,U+9a6c,U+9a8c,U+9ed1,U+9f99;
+}
+      @font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(fonts/noto-serif-sc-117-600-normal.woff2) format('woff2');
+  unicode-range: U+4e,U+201c-201d,U+3010-3011,U+4e07,U+4e1c,U+4e24,U+4e3e,U+4e48,U+4e50,U+4e5f,U+4e8b-4e8c,U+4ea4,U+4eab-4eac,U+4ecb,U+4ece,U+4ed6,U+4ee3,U+4ef6-4ef7,U+4efb,U+4f20,U+4f55,U+4f7f,U+4fdd,U+505a,U+5143,U+5149,U+514d,U+5171,U+5177,U+518c,U+51fb,U+521b,U+5229,U+522b,U+52a9,U+5305,U+5317,U+534e,U+5355,U+5357,U+535a,U+5373,U+539f,U+53bb,U+53ca,U+53cd,U+53d6,U+53e3,U+53f0,U+5458,U+5546,U+56db,U+573a,U+578b,U+57ce,U+58f0,U+590d,U+5934,U+5973,U+5b57,U+5b8c,U+5b98,U+5bb9,U+5bfc,U+5c06,U+5c11,U+5c31,U+5c55,U+5df2,U+5e03,U+5e38,U+5e76,U+5e94,U+5efa,U+5f71,U+5f97,U+5feb,U+6001,U+603b,U+60f3,U+611f,U+6216,U+624d,U+6253,U+6295,U+6301,U+6392,U+641c,U+652f,U+653e,U+6559,U+6599,U+661f,U+671f,U+672f,U+6761,U+67e5,U+6807,U+6837,U+683c,U+6848,U+6b22,U+6b64,U+6bd4,U+6c14,U+6c34,U+6c42,U+6ca1,U+6d41,U+6d77,U+6d88,U+6e05,U+6e38,U+6e90,U+7136,U+7231,U+7531,U+767e,U+76ee,U+76f4,U+771f,U+7801,U+793a,U+79cd,U+7a0b,U+7a7a,U+7acb,U+7ae0,U+7b2c,U+7b80,U+7ba1,U+7cbe,U+7d22,U+7ea7,U+7ed3,U+7ed9,U+7edf,U+7f16,U+7f6e,U+8001,U+800c,U+8272,U+8282,U+82b1,U+8350,U+88ab,U+88c5,U+897f,U+89c1,U+89c4,U+89e3,U+8a00,U+8ba1,U+8ba4,U+8bae-8bb0,U+8bbe,U+8bc1,U+8bc4,U+8bfb,U+8d28,U+8d39,U+8d77,U+8d85,U+8def,U+8eab,U+8f66,U+8f6c,U+8f7d,U+8fd0,U+9009,U+90ae,U+90fd,U+91cc-91cd,U+91cf,U+95fb,U+9650,U+96c6,U+9891,U+98ce,U+ff1f;
+}
+      @font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(fonts/noto-serif-sc-118-600-normal.woff2) format('woff2');
+  unicode-range: U+d,U+3e,U+5f,U+7c,U+a0,U+a9,U+4e09-4e0b,U+4e0d-4e0e,U+4e13,U+4e1a,U+4e2a,U+4e3a-4e3b,U+4e4b,U+4e86,U+4e8e,U+4ea7,U+4eba,U+4ee4-4ee5,U+4eec,U+4f1a,U+4f4d,U+4f53,U+4f5c,U+4f60,U+4fe1,U+5165,U+5168,U+516c,U+5173,U+5176,U+5185,U+51fa,U+5206,U+5230,U+5236,U+524d,U+529b,U+52a0-52a1,U+52a8,U+5316,U+533a,U+53cb,U+53d1,U+53ef,U+53f7-53f8,U+5408,U+540c-540e,U+544a,U+548c,U+54c1,U+56de,U+56fd-56fe,U+5728,U+5730,U+5907,U+5916,U+591a,U+5927,U+5929,U+597d,U+5982,U+5b50,U+5b66,U+5b89,U+5b9a,U+5b9e,U+5ba2,U+5bb6,U+5bf9,U+5c0f,U+5de5,U+5e02,U+5e73-5e74,U+5e7f,U+5ea6,U+5f00,U+5f0f,U+5f53,U+5f55,U+5fae,U+5fc3,U+6027,U+606f,U+60a8,U+60c5,U+610f,U+6210-6211,U+6237,U+6240,U+624b,U+6280,U+62a5,U+63a5,U+63a8,U+63d0,U+6536,U+6570,U+6587,U+65b9,U+65e0,U+65f6,U+660e,U+662d,U+662f,U+66f4,U+6700,U+670d,U+672c,U+673a,U+6743,U+6765,U+679c,U+682a,U+6b21,U+6b63,U+6cbb,U+6cd5,U+6ce8,U+6d3b,U+70ed,U+7247-7248,U+7269,U+7279,U+73b0,U+7406,U+751f,U+7528,U+7535,U+767b,U+76f8,U+770b,U+77e5,U+793e,U+79d1,U+7ad9,U+7b49,U+7c7b,U+7cfb,U+7ebf,U+7ecf,U+7f8e,U+8005,U+8054,U+80fd,U+81ea,U+85cf,U+884c,U+8868,U+8981,U+89c6,U+8bba,U+8bdd,U+8bf4,U+8bf7,U+8d44,U+8fc7,U+8fd8-8fd9,U+8fdb,U+901a,U+9053,U+90e8,U+91d1,U+957f,U+95e8,U+95ee,U+95f4,U+9762,U+9875,U+9898,U+9996,U+9ad8,U+ff01,U+ff08-ff09;
+}
+      @font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(fonts/noto-serif-sc-119-600-normal.woff2) format('woff2');
+  unicode-range: U+20-22,U+27-2a,U+2c-3b,U+3f,U+41-4d,U+4f-5d,U+61-7b,U+7d,U+ab,U+ae,U+b2,U+b7,U+bb,U+df-e5,U+e7-ea,U+ec-ed,U+f1-f4,U+f6,U+f9-fa,U+fc,U+101,U+103,U+113,U+12b,U+148,U+14d,U+16b,U+1ce,U+1d0,U+300-301,U+1ebf,U+1ec7,U+2013-2014,U+2022,U+2027,U+2039-203a,U+2122,U+3001-3002,U+3042,U+3044,U+3046,U+3048,U+304a-3055,U+3057,U+3059-305b,U+305d,U+305f-3061,U+3063-306b,U+306d-3073,U+3075-3076,U+3078-3079,U+307b,U+307e-307f,U+3081-308d,U+308f,U+3092-3093,U+30a1-30a4,U+30a6-30bb,U+30bd,U+30bf-30c1,U+30c3-30c4,U+30c6-30cb,U+30cd-30d7,U+30d9-30e1,U+30e3-30e7,U+30e9-30ed,U+30ef,U+30f3,U+30fb-30fc,U+3127,U+4e00,U+4e2d,U+65b0,U+65e5,U+6708-6709,U+70b9,U+7684,U+7f51,U+ff0c,U+ff0e,U+ff1a;
+}
+      @font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(fonts/noto-serif-sc-latin-600-normal.woff2) format('woff2');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+      @font-face {
+  font-family: 'Ma Shan Zheng';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(fonts/ma-shan-zheng-62-400-normal.woff2) format('woff2');
+  unicode-range: U+69fe-6a01,U+6a06,U+6a09,U+6a0b,U+6a11,U+6a13,U+6a17-6a19,U+6a1b,U+6a1e,U+6a23,U+6a28-6a29,U+6a2b,U+6a2f-6a30,U+6a35,U+6a38-6a40,U+6a46-6a48,U+6a4a-6a4b,U+6a4e,U+6a50,U+6a52,U+6a5b,U+6a5e,U+6a62,U+6a65-6a67,U+6a6b,U+6a79,U+6a7c,U+6a7e-6a7f,U+6a84,U+6a86,U+6a8e,U+6a90-6a91,U+6a94,U+6a97,U+6a9c,U+6a9e,U+6aa0,U+6aa2,U+6aa4,U+6aa9,U+6aab,U+6aae-6ab0,U+6ab2-6ab3,U+6ab5,U+6ab7-6ab8,U+6aba-6abb,U+6abd,U+6abf,U+6ac2-6ac4,U+6ac6,U+6ac8,U+6acc,U+6ace,U+6ad2-6ad3,U+6ad8-6adc,U+6adf-6ae0,U+6ae4-6ae5,U+6ae7-6ae8,U+6afb,U+6b04-6b05,U+6b0d-6b13,U+6b16-6b17,U+6b19,U+6b24-6b25,U+6b2c,U+6b37-6b39,U+6b3b,U+6b3d,U+6b43,U+6b46,U+6b4e,U+6b50,U+6b53-6b54,U+6b58-6b59,U+6b5b,U+6b60,U+6b69,U+6b6d,U+6b6f-6b70,U+6b73-6b74,U+6b77-6b7a,U+6b80-6b82;
+}
+      @font-face {
+  font-family: 'Ma Shan Zheng';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(fonts/ma-shan-zheng-100-400-normal.woff2) format('woff2');
+  unicode-range: U+221a,U+2264,U+2464,U+25a0,U+3008,U+4e10,U+512a,U+5152,U+5201,U+5241,U+5340,U+5352,U+549a,U+54b2,U+54c6,U+54d7,U+54e1,U+5509,U+55c5,U+5618,U+5716,U+576f,U+5784,U+57a2,U+589f,U+5a20,U+5a25,U+5a29,U+5a34,U+5a7f,U+5ad6,U+5b09,U+5b5c,U+5bc7,U+5be6,U+5c27,U+5d2d,U+5dcd,U+5f1b,U+5f37,U+604d,U+6055,U+6073,U+60eb,U+61ff,U+62ce,U+62ed,U+6345,U+6390,U+63b0,U+63b7,U+64ae,U+64c2,U+64d2,U+6556,U+663c,U+667e,U+66d9,U+66f8,U+6756,U+6789,U+689d,U+68f1,U+695e,U+6975,U+6a1f,U+6b0a,U+6b61,U+6b87,U+6c5d,U+6c7e,U+6c92,U+6d31,U+6df9,U+6e0d,U+6e2d,U+6f31,U+6f3e,U+70b3,U+70bd,U+70ca,U+70e8,U+725f,U+733f,U+7396,U+739f,U+7459,U+74a7,U+75a1,U+75f0,U+76cf,U+76d4,U+7729,U+77aa,U+77b0,U+77e3,U+780c,U+78d5,U+7941,U+7977,U+797a,U+79c3,U+7a20,U+7a92,U+7b71,U+7bf1,U+7c9f,U+7eb6,U+7eca,U+7ef7,U+7f07,U+7f09,U+7f15,U+7f81,U+7fb9,U+8038,U+8098,U+80b4,U+8110,U+814b-814c,U+816e,U+818a,U+8205,U+8235,U+828b,U+82a5,U+82b7,U+82d4,U+82db,U+82df,U+8317,U+8338,U+8385-8386,U+83c1,U+83cf,U+8537,U+853b,U+854a,U+8715,U+8783,U+892a,U+8a71,U+8bb3,U+8d2e,U+8d58,U+8dbe,U+8f67,U+8fab,U+8fc4,U+8fe6,U+9023,U+9084,U+9091,U+916a,U+91c9,U+91dc,U+94b3,U+9502,U+9523,U+9551,U+956f,U+960e,U+962a,U+962e,U+9647,U+96f3,U+9739,U+97a0,U+97ed,U+983b,U+985e,U+988a,U+99ac,U+9a6f,U+9a87,U+9a8b,U+9ab7,U+9abc,U+9ac5,U+9e25,U+e608,U+e621,U+ff06,U+ff14-ff16;
+}
+      @font-face {
+  font-family: 'Ma Shan Zheng';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(fonts/ma-shan-zheng-104-400-normal.woff2) format('woff2');
+  unicode-range: U+2003,U+2193,U+2462,U+4e19,U+4e2b,U+4e36,U+4ea8,U+4ed1,U+4ed7,U+4f51,U+4f63,U+4f83,U+50e7,U+5112,U+5167,U+51a4,U+51b6,U+5239,U+5265,U+532a,U+5351,U+537f,U+5401,U+548f,U+5492,U+54af,U+54b3,U+54bd,U+54d1,U+54df,U+554f,U+5564,U+5598,U+5632,U+56a3,U+56e7,U+574e,U+575d-575e,U+57d4,U+584c,U+58e4,U+5937,U+5955,U+5a05,U+5a1f,U+5a49,U+5ac2,U+5c39,U+5c61,U+5d0e,U+5de9,U+5e9a,U+5eb8,U+5f0a,U+5f13,U+5f6c,U+5f8c,U+603c,U+608d,U+611b,U+6127,U+62a0,U+62d0,U+634f,U+635e,U+63fd,U+6577,U+658b,U+65bc,U+660a,U+6643,U+6656,U+6703,U+6760,U+67af,U+67c4,U+67e0,U+6817,U+68cd,U+690e,U+6960,U+69b4,U+6a71,U+6aac,U+6b67,U+6bb4,U+6c55,U+6c70,U+6c82,U+6ca6,U+6cb8,U+6cbe,U+6ede,U+6ee5,U+6f4d,U+6f84,U+6f9c,U+7115,U+7121,U+722a,U+7261,U+7272,U+7280,U+72f8,U+7504,U+754f,U+75d8,U+767c,U+76ef,U+778e,U+77bb,U+77f6,U+786b,U+78b1,U+7948,U+7985,U+79be,U+7a83,U+7a8d,U+7eac,U+7eef,U+7ef8,U+7efd,U+7f00,U+803d,U+8086,U+810a,U+8165,U+819d,U+81a8,U+8214,U+829c,U+831c,U+832b,U+8367,U+83e0,U+83f1,U+8403,U+846b,U+8475,U+84b2,U+8513,U+8574,U+85af,U+86d9,U+86db,U+8acb,U+8bbd,U+8be0-8be1,U+8c0e,U+8d29,U+8d50,U+8d63,U+8f7f,U+9032,U+9042,U+90b1,U+90b5,U+9165,U+9175,U+94a6,U+94c5,U+950c,U+9610,U+9631,U+9699,U+973e,U+978d,U+97ec,U+97f6,U+984c,U+987d,U+9882,U+9965,U+996a,U+9972,U+9a8f,U+9ad3,U+9ae6,U+9cb8,U+9edb,U+e600,U+e60f,U+e611,U+ff05,U+ff0b;
+}
+      @font-face {
+  font-family: 'Ma Shan Zheng';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(fonts/ma-shan-zheng-106-400-normal.woff2) format('woff2');
+  unicode-range: U+b0,U+2191,U+2460-2461,U+25c6,U+300e-300f,U+4e1b,U+4e7e,U+4ed5,U+4ef2,U+4f10,U+4f1e,U+4f50,U+4fa6,U+4faf,U+5021,U+50f5,U+5179,U+5180,U+51d1,U+522e,U+52a3,U+52c3,U+52cb,U+5300,U+5319,U+5320,U+5349,U+5395,U+53d9,U+541e,U+5428,U+543e,U+54b1,U+54c0,U+54d2,U+570b,U+5858,U+58f6,U+5974,U+59a5,U+59e8,U+59ec,U+5a36,U+5a9a,U+5ab3,U+5b99,U+5baa,U+5ce1,U+5d14,U+5d4c,U+5dc5,U+5de2,U+5e99,U+5e9e,U+5f18,U+5f66,U+5f70,U+6070,U+60d5,U+60e7,U+6101,U+611a,U+61be,U+6241,U+6252,U+626f,U+6296,U+62bc,U+62cc,U+6380,U+63a9,U+644a,U+6454,U+64a9,U+64b8,U+6500,U+6572,U+65a5,U+65a9,U+65ec,U+660f,U+6749,U+6795,U+67ab,U+68da,U+6912,U+6bbf,U+6bef,U+6cab,U+6cca,U+6ccc,U+6cfc,U+6d3d,U+6d78,U+6dee,U+6e17,U+6e34,U+6e83,U+6ea2,U+6eb6,U+6f20,U+6fa1,U+707f,U+70d8,U+70eb,U+714c,U+714e,U+7235,U+7239,U+73ca,U+743c,U+745c,U+7624,U+763e,U+76f2,U+77db,U+77e9,U+780d,U+7838,U+7845,U+78ca,U+796d,U+7a84,U+7aed,U+7b3c,U+7eb2,U+7f05,U+7f20,U+7f34,U+7f62,U+7fc5,U+7fd8,U+7ff0,U+800d,U+8036,U+80ba,U+80be,U+80c0-80c1,U+8155,U+817a,U+8180,U+81e3,U+8206,U+8247,U+8270,U+8299,U+82ad,U+8304,U+8393,U+83b9,U+840d,U+8427,U+8469,U+8471,U+84c4,U+84ec,U+853d,U+8681-8682,U+8721,U+8854,U+88d5,U+88f9,U+8bc0,U+8c0a,U+8c29,U+8c2d,U+8d41,U+8dea,U+8eb2,U+8f9f,U+903b,U+903e,U+9102,U+9493,U+94a5,U+94f8,U+95f7,U+9706,U+9709,U+9774,U+98a0,U+9e64,U+9f9f,U+e603;
+}
+      @font-face {
+  font-family: 'Ma Shan Zheng';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(fonts/ma-shan-zheng-108-400-normal.woff2) format('woff2');
+  unicode-range: U+24,U+4e08,U+4e43,U+4e4f,U+4ef0,U+4f2a,U+507f,U+50ac,U+50bb,U+5151,U+51bb,U+51f6,U+51fd,U+5272,U+52fe,U+5362,U+53c9,U+53d4,U+53e0,U+543b,U+54f2,U+5507,U+5524,U+558a,U+55b5,U+561b,U+56ca,U+5782,U+57c3,U+5893,U+5915,U+5949,U+5962,U+59ae,U+59dc,U+59fb,U+5bd3,U+5c38,U+5cb3,U+5d07,U+5d29,U+5de1,U+5dfe,U+5e15,U+5eca,U+5f2f,U+5f7c,U+5fcc,U+6021,U+609f,U+60f9,U+6108,U+6148,U+6155,U+6170,U+61d2,U+6251,U+629b,U+62ab,U+62e8,U+62f3,U+6321,U+6350,U+6566,U+659c,U+65e8,U+6635,U+6655,U+6670,U+66f9,U+6734,U+679d,U+6851,U+6905,U+6b49,U+6b96,U+6c1b,U+6c41,U+6c6a,U+6c83,U+6cf3,U+6d9b,U+6dcb,U+6e1d,U+6e20-6e21,U+6eaa,U+6ee4,U+6ee9,U+6f58,U+70e4,U+722c,U+7262,U+7267,U+72b9,U+72e0,U+72ee,U+72f1,U+7334,U+73ab,U+7433,U+7470,U+758f,U+75d5,U+764c,U+7686,U+76c6,U+76fe,U+7720,U+77e2,U+7802,U+7816,U+788d,U+7891,U+7a00,U+7a9d,U+7b52,U+7bad,U+7c98,U+7cca,U+7eba,U+7eea,U+7ef5,U+7f1d,U+7f69,U+806a,U+809a,U+80bf,U+80c3,U+81c0,U+820c,U+82ac,U+82af,U+82cd,U+82d7,U+838e,U+839e,U+8404,U+84b8,U+852c,U+8587,U+8650,U+8679,U+86c7,U+8702,U+87ba,U+886b-886c,U+8870,U+8c10,U+8c23,U+8c6b,U+8d3e,U+8d4b-8d4c,U+8d64,U+8d6b,U+8d74,U+8e29,U+8f69,U+8f74,U+8fb0,U+8fdf,U+901b,U+9038,U+9093,U+9171,U+9489,U+94ae,U+94c3,U+9508,U+9510,U+9601,U+9614,U+964c,U+9675,U+971c,U+97f5,U+9888,U+98d8,U+9971,U+9aa4,U+9e3f,U+9e45,U+9e4f,U+9e70,U+9f7f,U+e715;
+}
+      @font-face {
+  font-family: 'Ma Shan Zheng';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(fonts/ma-shan-zheng-109-400-normal.woff2) format('woff2');
+  unicode-range: U+a5,U+2192,U+2605,U+4e11,U+4e22,U+4e32,U+4f0d,U+4f0f,U+4f69,U+4ff1,U+50b2,U+5154,U+51dd,U+51f0,U+5211,U+5269,U+533f,U+5366-5367,U+5389,U+5413,U+5440,U+5446,U+5561,U+574a,U+5751,U+57ab,U+5806,U+5821,U+582a,U+58f3,U+5938,U+5948,U+5978,U+59d1,U+5a03,U+5a07,U+5ac1,U+5acc,U+5ae9,U+5bb4,U+5bc4,U+5c3f,U+5e3d,U+5e7d,U+5f92,U+5faa,U+5fe0,U+5ffd,U+6016,U+60a0,U+60dc,U+60e8,U+614e,U+6212,U+6284,U+62c6,U+62d3-62d4,U+63f4,U+642c,U+6478,U+6491-6492,U+64e6,U+6591,U+65a4,U+664b,U+6735,U+6746,U+67f1,U+67f3,U+6842,U+68af,U+68c9,U+68cb,U+6a31,U+6b3a,U+6bc1,U+6c0f,U+6c27,U+6c57,U+6cc4,U+6ce5,U+6d2a,U+6d66,U+6d69,U+6daf,U+6e58,U+6ecb,U+6ef4,U+707e,U+7092,U+70ab,U+71d5,U+7275,U+7384,U+73b2,U+7434,U+74e6,U+74f7,U+75bc,U+76c8,U+76d0,U+7709,U+77ac,U+7855,U+78a7,U+78c1,U+7a77,U+7b79,U+7c92,U+7cae,U+7cd5,U+7ea4,U+7eb5,U+7ebd,U+7f5a,U+7fd4,U+7ffc,U+8083,U+8096,U+80a0,U+80d6,U+80de,U+8102,U+8109,U+810f,U+8179,U+8292,U+82b3,U+8352,U+8361,U+83cc,U+841d,U+8461,U+8482,U+8521,U+857e,U+85aa,U+866b,U+8776,U+8896,U+889c,U+88f8,U+8a9e,U+8bc8,U+8bf8,U+8c0b,U+8c28,U+8d2b,U+8d2f,U+8d37,U+8d3a,U+8d54,U+8dc3,U+8dcc,U+8df5,U+8e0f,U+8e48,U+8f86,U+8f88,U+8f9e,U+8fc1,U+8fc8,U+8feb,U+9065,U+90a6,U+90aa,U+90bb,U+90c1,U+94dc,U+9521,U+9676,U+96d5,U+970d,U+9897,U+997c,U+9a70,U+9a76,U+9a9a,U+9ad4,U+9e23,U+9e7f,U+9f3b,U+e675,U+e6b9,U+ffe5;
+}
+      @font-face {
+  font-family: 'Ma Shan Zheng';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(fonts/ma-shan-zheng-110-400-normal.woff2) format('woff2');
+  unicode-range: U+300c-300d,U+4e54,U+4e58,U+4e95,U+4ec1,U+4f2f,U+4f38,U+4fa3,U+4fca,U+503e,U+5141,U+5144,U+517c,U+51cc,U+51ed,U+5242,U+52b2,U+52d2,U+52e4,U+540a,U+5439,U+5448,U+5496,U+54ed,U+5565,U+5761,U+5766,U+58ee,U+593a,U+594b,U+594f,U+5954,U+5996,U+59c6,U+59ff,U+5b64,U+5bff,U+5c18,U+5c1d,U+5c97,U+5ca9,U+5cb8,U+5e9f,U+5ec9,U+5f04,U+5f7b,U+5fa1,U+5fcd,U+6012,U+60a6,U+60ac,U+60b2,U+60ef,U+626e,U+6270,U+6276,U+62d6,U+62dc,U+6316,U+632f,U+633a,U+6355,U+63aa,U+6447,U+649e,U+64c5,U+654c,U+65c1,U+65cb,U+65e6,U+6606,U+6731,U+675c,U+67cf,U+67dc,U+6846,U+6b8b,U+6beb,U+6c61,U+6c88,U+6cbf,U+6cdb,U+6cea,U+6d45,U+6d53,U+6d74,U+6d82,U+6da8,U+6db5,U+6deb,U+6eda,U+6ee8,U+6f0f,U+706d,U+708e,U+70ae,U+70bc,U+70c2,U+70e6,U+7237-7238,U+72fc,U+730e,U+731b,U+739b,U+73bb,U+7483,U+74dc,U+74f6,U+7586,U+7626,U+775b,U+77ff,U+788e,U+78b0,U+7956,U+7965,U+79e6,U+7af9,U+7bee,U+7c97,U+7eb1,U+7eb7,U+7ed1,U+7ed5,U+7f6a,U+7f72,U+7fbd,U+8017,U+808c,U+80a9,U+80c6,U+80ce,U+8150,U+8170,U+819c,U+820d,U+8230,U+8239,U+827e,U+8377,U+8389,U+83b2,U+8428,U+8463,U+867e,U+88c2,U+88d9,U+8986,U+8bca,U+8bde,U+8c13,U+8c8c,U+8d21,U+8d24,U+8d56,U+8d60,U+8d8b,U+8db4,U+8e2a,U+8f68,U+8f89,U+8f9b,U+8fa8,U+8fbd,U+9003,U+90ce,U+90ed,U+9189,U+94bb,U+9505,U+95f9,U+963b,U+9655,U+966a,U+9677,U+96fe,U+9896,U+99a8,U+9a71,U+9a82,U+9a91,U+9b45,U+9ece,U+9f20,U+feff,U+ff0d;
+}
+      @font-face {
+  font-family: 'Ma Shan Zheng';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(fonts/ma-shan-zheng-111-400-normal.woff2) format('woff2');
+  unicode-range: U+4e4c,U+4e88,U+4ea1,U+4ea6,U+4ed3-4ed4,U+4eff,U+4f30,U+4fa7,U+4fc4,U+4fd7,U+500d,U+504f,U+5076-5077,U+517d,U+5192,U+51c9,U+51ef,U+5238,U+5251,U+526a,U+52c7,U+52df,U+52ff,U+53a6,U+53a8,U+53ec,U+5410,U+559d,U+55b7,U+5634,U+573e,U+5783,U+585e,U+586b,U+58a8,U+5999,U+59d3,U+5a1c,U+5a46,U+5b54-5b55,U+5b85,U+5b8b,U+5b8f,U+5bbf,U+5bd2,U+5c16,U+5c24,U+5e05,U+5e45,U+5e7c,U+5e84,U+5f03,U+5f1f,U+5f31,U+5f84,U+5f90,U+5fbd,U+5fc6,U+5fd9,U+5fe7,U+6052,U+6062,U+6089,U+60a3,U+60d1,U+6167,U+622a,U+6234,U+624e,U+6269,U+626c,U+62b5,U+62d2,U+6325,U+63e1,U+643a,U+6446,U+6562,U+656c,U+65e2,U+65fa,U+660c,U+6628,U+6652,U+6668,U+6676,U+66fc,U+66ff,U+6717,U+676d,U+67aa,U+67d4,U+6843,U+6881,U+68d2,U+695a,U+69fd,U+6a2a,U+6b8a,U+6c60,U+6c64,U+6c9f,U+6caa,U+6cc9,U+6ce1,U+6cfd,U+6d1b,U+6d1e,U+6d6e,U+6de1,U+6e10,U+6e7f,U+6f5c,U+704c,U+7070,U+7089,U+70b8,U+718a,U+71c3,U+723d,U+732a,U+73cd,U+7518,U+756a,U+75af,U+75be,U+75c7,U+76d2,U+76d7,U+7763,U+78e8,U+795d,U+79df,U+7c4d,U+7d2f,U+7ee9,U+7f13,U+7f8a,U+8000,U+8010,U+80af,U+80f6,U+80f8,U+8212,U+8273,U+82f9,U+83ab,U+83b1,U+83f2,U+8584,U+871c,U+8861,U+888b,U+88c1,U+88e4,U+8bd1,U+8bf1,U+8c31,U+8d5a,U+8d75-8d76,U+8de8,U+8f85,U+8fa3,U+8fc5,U+9006,U+903c,U+904d,U+9075,U+9178,U+9274,U+950b,U+9526,U+95ea,U+9636,U+9686,U+978b,U+987f,U+9a7e,U+9b42,U+9e1f,U+9ea6,U+9f13,U+9f84,U+ff5e;
+}
+      @font-face {
+  font-family: 'Ma Shan Zheng';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(fonts/ma-shan-zheng-112-400-normal.woff2) format('woff2');
+  unicode-range: U+23,U+3d,U+4e01,U+4e39,U+4e73,U+4ecd,U+4ed9,U+4eea,U+4f0a,U+4f1f,U+4f5b,U+4fa0,U+4fc3,U+501f,U+50a8,U+515a,U+5175,U+51a0,U+51c0,U+51e1,U+51e4,U+5200,U+520a,U+5224,U+523a,U+52aa,U+52b1,U+52b3,U+5348,U+5353,U+5360,U+5371,U+5377,U+539a,U+541b,U+5434,U+547c,U+54e6,U+5510,U+5531,U+5609,U+56f0,U+56fa,U+5733,U+574f,U+5851,U+5854,U+5899,U+58c1,U+592e,U+5939,U+5976,U+5986,U+59bb,U+5a18,U+5a74,U+5b59,U+5b87,U+5b97,U+5ba0,U+5bab,U+5bbd-5bbe,U+5bf8,U+5c0a,U+5c3a,U+5c4a,U+5e16,U+5e1d,U+5e2d,U+5e8a,U+6015,U+602a,U+6050,U+6069,U+6162,U+61c2,U+6293,U+6297,U+62b1,U+62bd,U+62df,U+62fc,U+6302,U+635f,U+638c,U+63ed,U+6458,U+6469,U+6563,U+6620,U+6653,U+6696-6697,U+66dd,U+675f,U+676f-6770,U+67d0,U+67d3,U+684c,U+6865,U+6885,U+68b0,U+68ee,U+690d,U+6b23,U+6b32,U+6bd5,U+6c89,U+6d01,U+6d25,U+6d89,U+6da6,U+6db2,U+6df7,U+6ed1,U+6f02,U+70c8,U+70df,U+70e7,U+7126,U+7236,U+7259,U+731c,U+745e,U+74e3,U+751a,U+751c,U+7532,U+7545,U+75db,U+7761,U+7a0d,U+7b51,U+7ca4,U+7cd6,U+7d2b,U+7ea0,U+7eb9,U+7ed8,U+7f18,U+7f29,U+8033,U+804a,U+80a4-80a5,U+80e1,U+817f,U+829d,U+82e6,U+8336,U+840c,U+8499,U+864e,U+8651,U+865a,U+88ad,U+89e6,U+8bd7,U+8bfa,U+8c37,U+8d25,U+8d38,U+8ddd,U+8fea,U+9010,U+9012,U+906d,U+907f-9080,U+90d1,U+9177,U+91ca,U+94fa,U+9501,U+9634-9635,U+9694,U+9707,U+9738,U+9769,U+9a7b,U+9a97,U+9aa8,U+9b3c,U+9c81,U+9ed8;
+}
+      @font-face {
+  font-family: 'Ma Shan Zheng';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(fonts/ma-shan-zheng-113-400-normal.woff2) format('woff2');
+  unicode-range: U+26,U+3c,U+d7,U+4e4e,U+4e61,U+4e71,U+4ebf,U+4f26,U+5012,U+51ac,U+51b0,U+51b2,U+51b7,U+5218,U+521a,U+5220,U+5237,U+523b,U+526f,U+5385,U+53bf,U+53e5,U+53eb,U+53f3,U+53f6,U+5409,U+5438,U+54c8,U+54e5,U+552f,U+5584,U+5706,U+5723,U+5750,U+575a,U+5987-5988,U+59b9,U+59d0,U+59d4,U+5b88,U+5b9c,U+5bdf,U+5bfb,U+5c01,U+5c04,U+5c3e,U+5c4b,U+5c4f,U+5c9b,U+5cf0,U+5ddd,U+5de6,U+5de8,U+5e01,U+5e78,U+5e7b,U+5e9c,U+5ead,U+5ef6,U+5f39,U+5fd8,U+6000,U+6025,U+604b,U+6076,U+613f,U+6258,U+6263,U+6267,U+6298,U+62a2,U+62e5,U+62ec,U+6311,U+6377,U+6388-6389,U+63a2,U+63d2,U+641e,U+642d,U+654f,U+6551,U+6597,U+65cf,U+65d7,U+65e7,U+6682,U+66f2,U+671d,U+672b,U+6740,U+6751,U+6768,U+6811,U+6863,U+6982,U+6bd2,U+6cf0,U+6d0b,U+6d17,U+6d59,U+6dd8,U+6dfb,U+6e7e,U+6f6e,U+6fb3,U+706f,U+719f,U+72af,U+72d0,U+72d7,U+732b,U+732e,U+7389,U+73e0,U+7530,U+7687,U+76d6,U+76db,U+7840,U+786c,U+79cb,U+79d2,U+7a0e,U+7a33,U+7a3f,U+7a97,U+7ade-7adf,U+7b26,U+7e41,U+7ec3,U+7f3a,U+8089,U+80dc,U+811a,U+8131,U+8138,U+821e,U+8349,U+83dc,U+8457,U+867d,U+86cb,U+8a89,U+8ba8,U+8bad,U+8bef,U+8bfe,U+8c6a,U+8d1d,U+8d4f,U+8d62,U+8dd1,U+8df3,U+8f6e,U+8ff9,U+900f,U+9014,U+9057,U+9192,U+91ce,U+9488,U+94a2,U+9547,U+955c,U+95f2,U+9644,U+964d,U+96c4-96c5,U+96e8,U+96f6-96f7,U+9732,U+9759,U+9760,U+987a,U+989c,U+9910,U+996d-996e,U+9b54,U+9e21,U+9ebb,U+9f50;
+}
+      @font-face {
+  font-family: 'Ma Shan Zheng';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(fonts/ma-shan-zheng-114-400-normal.woff2) format('woff2');
+  unicode-range: U+7e,U+2026,U+4e03,U+4e25,U+4e30,U+4e34,U+4e45,U+4e5d,U+4e89,U+4eae,U+4ed8,U+4f11,U+4f19,U+4f24,U+4f34,U+4f59,U+4f73,U+4f9d,U+4fb5,U+5047,U+505c,U+5170,U+519c,U+51cf,U+5267,U+5356,U+5374,U+5382,U+538b,U+53e6,U+5426,U+542b,U+542f,U+5462,U+5473,U+554a,U+5566,U+5708,U+571f,U+5757,U+57df,U+57f9,U+5802,U+590f,U+591c,U+591f,U+592b,U+5965,U+5979,U+5a01,U+5a5a,U+5b63,U+5b69,U+5b81,U+5ba1,U+5ba3,U+5c3c,U+5c42,U+5c81,U+5de7,U+5dee,U+5e0c,U+5e10,U+5e55,U+5e86,U+5e8f,U+5ea7,U+5f02,U+5f52,U+5f81,U+5ff5,U+60ca,U+60e0,U+6279,U+62c5,U+62ff,U+63cf,U+6444,U+64cd,U+653b,U+65bd,U+65e9,U+665a,U+66b4,U+66fe,U+6728,U+6742,U+677e,U+67b6,U+680f,U+68a6,U+68c0,U+699c,U+6b4c,U+6b66,U+6b7b,U+6bcd,U+6bdb,U+6c38,U+6c47,U+6c49,U+6cb3,U+6cb9,U+6ce2,U+6d32,U+6d3e,U+6d4f,U+6e56,U+6fc0,U+7075,U+7206,U+725b,U+72c2,U+73ed,U+7565,U+7591,U+7597,U+75c5,U+76ae,U+76d1,U+76df,U+7834,U+7968,U+7981,U+79c0,U+7a7f,U+7a81,U+7ae5,U+7b14,U+7c89,U+7d27,U+7eaf,U+7eb3,U+7eb8,U+7ec7,U+7ee7,U+7eff,U+7f57,U+7ffb,U+805a,U+80a1,U+822c,U+82cf,U+82e5,U+8363,U+836f,U+84dd,U+878d,U+8840,U+8857,U+8863,U+8865,U+8b66,U+8bb2,U+8bda,U+8c01,U+8c08,U+8c46,U+8d1f,U+8d35,U+8d5b,U+8d5e,U+8da3,U+8ddf,U+8f93,U+8fdd,U+8ff0,U+8ff7,U+8ffd,U+9000,U+9047,U+9152,U+949f,U+94c1,U+94f6,U+9646,U+9648,U+9669,U+969c,U+96ea,U+97e9,U+987b,U+987e,U+989d,U+9970,U+9986,U+9c7c,U+9c9c;
+}
+      @font-face {
+  font-family: 'Ma Shan Zheng';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(fonts/ma-shan-zheng-115-400-normal.woff2) format('woff2');
+  unicode-range: U+25,U+4e14,U+4e1d,U+4e3d,U+4e49,U+4e60,U+4e9a,U+4eb2,U+4ec5,U+4efd,U+4f3c,U+4f4f,U+4f8b,U+4fbf,U+5019,U+5145,U+514b,U+516b,U+516d,U+5174,U+5178,U+517b,U+5199,U+519b,U+51b3,U+51b5,U+5207,U+5212,U+5219,U+521d,U+52bf,U+533b,U+5343,U+5347,U+534a,U+536b,U+5370,U+53e4,U+53f2,U+5403,U+542c,U+547d,U+54a8,U+54cd,U+54ea,U+552e,U+56f4,U+5747,U+575b,U+5883,U+589e,U+5931,U+5947,U+5956-5957,U+5a92,U+5b83,U+5ba4,U+5bb3,U+5bcc,U+5c14,U+5c1a,U+5c3d,U+5c40,U+5c45,U+5c5e,U+5df4,U+5e72,U+5e95,U+5f80,U+5f85,U+5fb7,U+5fd7,U+601d,U+626b,U+627f,U+62c9,U+62cd,U+6309,U+63a7,U+6545,U+65ad,U+65af,U+65c5,U+666e,U+667a,U+670b,U+671b,U+674e,U+677f,U+6781,U+6790,U+6797,U+6821,U+6838-6839,U+697c,U+6b27,U+6b62,U+6bb5,U+6c7d,U+6c99,U+6d4b,U+6d4e,U+6d6a,U+6e29,U+6e2f,U+6ee1,U+6f14,U+6f2b,U+72b6,U+72ec,U+7387,U+7533,U+753b,U+76ca,U+76d8,U+7701,U+773c,U+77ed,U+77f3,U+7814,U+793c,U+79bb,U+79c1,U+79d8,U+79ef,U+79fb,U+7a76,U+7b11,U+7b54,U+7b56,U+7b97,U+7bc7,U+7c73,U+7d20,U+7eaa,U+7ec8,U+7edd,U+7eed,U+7efc,U+7fa4,U+804c,U+8058,U+80cc,U+8111,U+817e,U+826f,U+8303,U+843d,U+89c9,U+89d2,U+8ba2,U+8bbf,U+8bc9,U+8bcd,U+8be6,U+8c22,U+8c61,U+8d22,U+8d26-8d27,U+8d8a,U+8f6f,U+8f7b,U+8f83,U+8f91,U+8fb9,U+8fd4,U+8fdc,U+9002,U+94b1,U+9519,U+95ed,U+961f,U+9632-9633,U+963f,U+968f-9690,U+96be,U+9876,U+9884,U+98de,U+9988,U+9999,U+9ec4,U+ff1b;
+}
+      @font-face {
+  font-family: 'Ma Shan Zheng';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(fonts/ma-shan-zheng-116-400-normal.woff2) format('woff2');
+  unicode-range: U+2b,U+40,U+3000,U+300a-300b,U+4e16,U+4e66,U+4e70,U+4e91-4e92,U+4e94,U+4e9b,U+4ec0,U+4eca,U+4f01,U+4f17-4f18,U+4f46,U+4f4e,U+4f9b,U+4fee,U+503c,U+5065,U+50cf,U+513f,U+5148,U+518d,U+51c6,U+51e0,U+5217,U+529e-529f,U+5341,U+534f,U+5361,U+5386,U+53c2,U+53c8,U+53cc,U+53d7-53d8,U+53ea,U+5404,U+5411,U+5417,U+5427,U+5468,U+559c,U+5668,U+56e0,U+56e2,U+56ed,U+5740,U+57fa,U+58eb,U+5904,U+592a,U+59cb,U+5a31,U+5b58,U+5b9d,U+5bc6,U+5c71,U+5dde,U+5df1,U+5e08,U+5e26,U+5e2e,U+5e93,U+5e97,U+5eb7,U+5f15,U+5f20,U+5f3a,U+5f62,U+5f69,U+5f88,U+5f8b,U+5fc5,U+600e,U+620f,U+6218,U+623f,U+627e,U+628a,U+62a4,U+62db,U+62e9,U+6307,U+6362,U+636e,U+64ad,U+6539,U+653f,U+6548,U+6574,U+6613,U+6625,U+663e,U+666f,U+672a,U+6750,U+6784,U+6a21,U+6b3e,U+6b65,U+6bcf,U+6c11,U+6c5f,U+6df1,U+706b,U+7167,U+724c,U+738b,U+73a9,U+73af,U+7403,U+7537,U+754c,U+7559,U+767d,U+7740,U+786e,U+795e,U+798f,U+79f0,U+7aef,U+7b7e,U+7bb1,U+7ea2,U+7ea6,U+7ec4,U+7ec6,U+7ecd,U+7edc,U+7ef4,U+8003,U+80b2,U+81f3-81f4,U+822a,U+827a,U+82f1,U+83b7,U+8425,U+89c2,U+89c8,U+8ba9,U+8bb8,U+8bc6,U+8bd5,U+8be2,U+8be5,U+8bed,U+8c03,U+8d23,U+8d2d,U+8d34,U+8d70,U+8db3,U+8fbe,U+8fce,U+8fd1,U+8fde,U+9001,U+901f-9020,U+90a3,U+914d,U+91c7,U+94fe,U+9500,U+952e,U+9605,U+9645,U+9662,U+9664,U+9700,U+9752,U+975e,U+97f3,U+9879,U+9886,U+98df,U+9a6c,U+9a8c,U+9ed1,U+9f99;
+}
+      @font-face {
+  font-family: 'Ma Shan Zheng';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(fonts/ma-shan-zheng-117-400-normal.woff2) format('woff2');
+  unicode-range: U+4e,U+201c-201d,U+3010-3011,U+4e07,U+4e1c,U+4e24,U+4e3e,U+4e48,U+4e50,U+4e5f,U+4e8b-4e8c,U+4ea4,U+4eab-4eac,U+4ecb,U+4ece,U+4ed6,U+4ee3,U+4ef6-4ef7,U+4efb,U+4f20,U+4f55,U+4f7f,U+4fdd,U+505a,U+5143,U+5149,U+514d,U+5171,U+5177,U+518c,U+51fb,U+521b,U+5229,U+522b,U+52a9,U+5305,U+5317,U+534e,U+5355,U+5357,U+535a,U+5373,U+539f,U+53bb,U+53ca,U+53cd,U+53d6,U+53e3,U+53f0,U+5458,U+5546,U+56db,U+573a,U+578b,U+57ce,U+58f0,U+590d,U+5934,U+5973,U+5b57,U+5b8c,U+5b98,U+5bb9,U+5bfc,U+5c06,U+5c11,U+5c31,U+5c55,U+5df2,U+5e03,U+5e38,U+5e76,U+5e94,U+5efa,U+5f71,U+5f97,U+5feb,U+6001,U+603b,U+60f3,U+611f,U+6216,U+624d,U+6253,U+6295,U+6301,U+6392,U+641c,U+652f,U+653e,U+6559,U+6599,U+661f,U+671f,U+672f,U+6761,U+67e5,U+6807,U+6837,U+683c,U+6848,U+6b22,U+6b64,U+6bd4,U+6c14,U+6c34,U+6c42,U+6ca1,U+6d41,U+6d77,U+6d88,U+6e05,U+6e38,U+6e90,U+7136,U+7231,U+7531,U+767e,U+76ee,U+76f4,U+771f,U+7801,U+793a,U+79cd,U+7a0b,U+7a7a,U+7acb,U+7ae0,U+7b2c,U+7b80,U+7ba1,U+7cbe,U+7d22,U+7ea7,U+7ed3,U+7ed9,U+7edf,U+7f16,U+7f6e,U+8001,U+800c,U+8272,U+8282,U+82b1,U+8350,U+88ab,U+88c5,U+897f,U+89c1,U+89c4,U+89e3,U+8a00,U+8ba1,U+8ba4,U+8bae-8bb0,U+8bbe,U+8bc1,U+8bc4,U+8bfb,U+8d28,U+8d39,U+8d77,U+8d85,U+8def,U+8eab,U+8f66,U+8f6c,U+8f7d,U+8fd0,U+9009,U+90ae,U+90fd,U+91cc-91cd,U+91cf,U+95fb,U+9650,U+96c6,U+9891,U+98ce,U+ff1f;
+}
+      @font-face {
+  font-family: 'Ma Shan Zheng';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(fonts/ma-shan-zheng-118-400-normal.woff2) format('woff2');
+  unicode-range: U+d,U+3e,U+5f,U+7c,U+a0,U+a9,U+4e09-4e0b,U+4e0d-4e0e,U+4e13,U+4e1a,U+4e2a,U+4e3a-4e3b,U+4e4b,U+4e86,U+4e8e,U+4ea7,U+4eba,U+4ee4-4ee5,U+4eec,U+4f1a,U+4f4d,U+4f53,U+4f5c,U+4f60,U+4fe1,U+5165,U+5168,U+516c,U+5173,U+5176,U+5185,U+51fa,U+5206,U+5230,U+5236,U+524d,U+529b,U+52a0-52a1,U+52a8,U+5316,U+533a,U+53cb,U+53d1,U+53ef,U+53f7-53f8,U+5408,U+540c-540e,U+544a,U+548c,U+54c1,U+56de,U+56fd-56fe,U+5728,U+5730,U+5907,U+5916,U+591a,U+5927,U+5929,U+597d,U+5982,U+5b50,U+5b66,U+5b89,U+5b9a,U+5b9e,U+5ba2,U+5bb6,U+5bf9,U+5c0f,U+5de5,U+5e02,U+5e73-5e74,U+5e7f,U+5ea6,U+5f00,U+5f0f,U+5f53,U+5f55,U+5fae,U+5fc3,U+6027,U+606f,U+60a8,U+60c5,U+610f,U+6210-6211,U+6237,U+6240,U+624b,U+6280,U+62a5,U+63a5,U+63a8,U+63d0,U+6536,U+6570,U+6587,U+65b9,U+65e0,U+65f6,U+660e,U+662d,U+662f,U+66f4,U+6700,U+670d,U+672c,U+673a,U+6743,U+6765,U+679c,U+682a,U+6b21,U+6b63,U+6cbb,U+6cd5,U+6ce8,U+6d3b,U+70ed,U+7247-7248,U+7269,U+7279,U+73b0,U+7406,U+751f,U+7528,U+7535,U+767b,U+76f8,U+770b,U+77e5,U+793e,U+79d1,U+7ad9,U+7b49,U+7c7b,U+7cfb,U+7ebf,U+7ecf,U+7f8e,U+8005,U+8054,U+80fd,U+81ea,U+85cf,U+884c,U+8868,U+8981,U+89c6,U+8bba,U+8bdd,U+8bf4,U+8bf7,U+8d44,U+8fc7,U+8fd8-8fd9,U+8fdb,U+901a,U+9053,U+90e8,U+91d1,U+957f,U+95e8,U+95ee,U+95f4,U+9762,U+9875,U+9898,U+9996,U+9ad8,U+ff01,U+ff08-ff09;
+}
+      @font-face {
+  font-family: 'Ma Shan Zheng';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(fonts/ma-shan-zheng-119-400-normal.woff2) format('woff2');
+  unicode-range: U+20-22,U+27-2a,U+2c-3b,U+3f,U+41-4d,U+4f-5d,U+61-7b,U+7d,U+ab,U+ae,U+b2,U+b7,U+bb,U+df-e5,U+e7-ea,U+ec-ed,U+f1-f4,U+f6,U+f9-fa,U+fc,U+101,U+103,U+113,U+12b,U+148,U+14d,U+16b,U+1ce,U+1d0,U+300-301,U+1ebf,U+1ec7,U+2013-2014,U+2022,U+2027,U+2039-203a,U+2122,U+3001-3002,U+3042,U+3044,U+3046,U+3048,U+304a-3055,U+3057,U+3059-305b,U+305d,U+305f-3061,U+3063-306b,U+306d-3073,U+3075-3076,U+3078-3079,U+307b,U+307e-307f,U+3081-308d,U+308f,U+3092-3093,U+30a1-30a4,U+30a6-30bb,U+30bd,U+30bf-30c1,U+30c3-30c4,U+30c6-30cb,U+30cd-30d7,U+30d9-30e1,U+30e3-30e7,U+30e9-30ed,U+30ef,U+30f3,U+30fb-30fc,U+3127,U+4e00,U+4e2d,U+65b0,U+65e5,U+6708-6709,U+70b9,U+7684,U+7f51,U+ff0c,U+ff0e,U+ff1a;
+}
+      @font-face {
+  font-family: 'Ma Shan Zheng';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(fonts/ma-shan-zheng-latin-400-normal.woff2) format('woff2');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+      @font-face { font-family: "Source Serif 4"; font-style: italic; font-weight: 400; src: url(fonts/source-serif-4-latin-400-italic.woff2) format("woff2"); }
+      @font-face { font-family: "Source Serif 4"; font-style: normal; font-weight: 400; src: url(fonts/source-serif-4-latin-400-normal.woff2) format("woff2"); }
+      @font-face { font-family: "Source Serif 4"; font-style: normal; font-weight: 600; src: url(fonts/source-serif-4-latin-600-normal.woff2) format("woff2"); }
+      /*FONTS_END*/
+      :root {
+        --paper: #f3ede1;
+        --ink: #262624;
+        --ink2: #3a3d3b;
+        --mist: #e9e6dc;
+        --sage: #7e8b7a;
+        --celadon: #a9bdb8;
+        --water: #7f9ea3;
+        --water-d: #5d7b80;
+        --gold: #e3b565;
+        --night: #171b1f;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--paper); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--paper); font-family: "Noto Serif SC", serif; font-variant-numeric: lining-nums; }
+      .scene { position: absolute; inset: 0; overflow: hidden; }
+      .inner, .cam, .full { position: absolute; inset: 0; }
+      .paperbg { position: absolute; inset: 0; background: url(assets/art/paper.png) center / cover; }
+      .layer { position: absolute; left: 0; top: 0; display: block; }
+      svg.full { width: 1920px; height: 1080px; }
+      .dark { background: var(--night); }
+
+      /* subtitles */
+      #subs { position: absolute; left: 0; right: 0; bottom: 0; height: 300px; pointer-events: none; }
+      #sub-band { position: absolute; left: 0; right: 0; bottom: 0; height: 300px; opacity: 0; }
+      #sub-band.light { background: linear-gradient(to top, rgba(243, 237, 225, 0.82), rgba(243, 237, 225, 0)); }
+      .sub { position: absolute; left: 100px; right: 100px; bottom: 76px; display: flex; flex-direction: column; align-items: center; gap: 10px; opacity: 0; text-align: center; }
+      .sub .zh { font-family: "Noto Serif SC", serif; font-weight: 600; font-size: 50px; line-height: 1.3; letter-spacing: 0.06em; white-space: nowrap; }
+      .sub .en { font-family: "Source Serif 4", serif; font-style: italic; font-weight: 400; font-size: 30px; line-height: 1.25; letter-spacing: 0.01em; white-space: nowrap; }
+      .sub.on-light .zh { color: #23221f; text-shadow: 0 0 18px rgba(243, 237, 225, 0.9); }
+      .sub.on-light .en { color: #3b3a35; text-shadow: 0 0 14px rgba(243, 237, 225, 0.9); }
+      .sub.on-dark .zh { color: #f3ede1; text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6); }
+      .sub.on-dark .en { color: #e4ddcf; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6); }
+
+      /* climax */
+      #climax { position: absolute; inset: 0; }
+      #cx-word { position: absolute; left: 0; right: 0; top: 300px; text-align: center; font-family: "Ma Shan Zheng", serif; font-size: 320px; line-height: 1; color: #1f1f1d; }
+      #cx-theme { position: absolute; left: 0; right: 0; top: 690px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+      #cx-theme .zh { font-family: "Noto Serif SC", serif; font-weight: 600; font-size: 46px; letter-spacing: 0.32em; color: #2b2b28; }
+      #cx-theme .en { font-family: "Source Serif 4", serif; font-style: italic; font-size: 28px; letter-spacing: 0.06em; color: #4a4943; }
+
+      /* title */
+      #title-zh { position: absolute; left: 0; right: 0; top: 350px; text-align: center; font-family: "Ma Shan Zheng", serif; font-size: 150px; color: #22221f; letter-spacing: 0.08em; }
+      #title-en { position: absolute; left: 0; right: 0; top: 560px; text-align: center; font-family: "Source Serif 4", serif; font-style: italic; font-size: 40px; color: #4a4943; letter-spacing: 0.12em; }
+
+      /* global finishing layers */
+      #fx { position: absolute; inset: 0; pointer-events: none; }
+      #fx-paper { position: absolute; inset: 0; background: url(assets/art/paper_overlay.png) center / cover; mix-blend-mode: overlay; opacity: 0.35; }
+      .grain { position: absolute; inset: 0; background-size: 1920px 1080px; mix-blend-mode: overlay; opacity: 0; }
+      #fx-vig { position: absolute; inset: 0; background: radial-gradient(ellipse 95% 95% at 50% 50%, rgba(0, 0, 0, 0) 62%, rgba(30, 26, 20, 0.2) 100%); }
+      #blackout { position: absolute; inset: 0; background: #141618; opacity: 0; }
+      #blackout-tex { position: absolute; inset: 0; background: url(assets/art/paper_overlay.png) center / cover; mix-blend-mode: soft-light; opacity: 0.5; }
+      #fade-end { position: absolute; inset: 0; background: var(--paper); opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="160.1" data-width="1920" data-height="1080">
+      <div id="scenes"></div>
+
+      <div id="blackout" class="clip" data-start="16.3" data-duration="0.85" data-track-index="20"><div id="blackout-tex"></div></div>
+
+      <section id="climax" class="clip" data-start="17.0333" data-duration="4.6" data-track-index="21">
+        <div class="paperbg"></div>
+        <div id="cx-stage" class="full">
+          <img id="cx-ring1" class="layer" src="assets/art/ink_ring.png" alt="" style="left: 360px; top: -60px; width: 1200px; height: 1200px" />
+          <img id="cx-ring2" class="layer" src="assets/art/ink_ring.png" alt="" style="left: 360px; top: -60px; width: 1200px; height: 1200px" />
+          <img id="cx-splash" class="layer" src="assets/art/ink_splash.png" alt="" style="left: 260px; top: -160px; width: 1400px; height: 1400px" />
+          <div id="cx-drop" class="layer" style="left: 944px; top: 446px; width: 32px; height: 32px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #9fb6b8, #3d5457)"></div>
+          <div id="cx-word">来处</div>
+          <div id="cx-theme"><div class="zh">钱江源 · 浙江开化</div><div class="en">Qianjiangyuan · Kaihua, Zhejiang</div></div>
+        </div>
+      </section>
+
+      <div id="subs" class="clip" data-start="0" data-duration="160.1" data-track-index="22">
+        <div id="sub-band" class="light"></div>
+      </div>
+
+      <div id="fx" class="clip" data-start="0" data-duration="160.1" data-track-index="23">
+        <div id="fx-paper"></div>
+        <div id="g0" class="grain" style="background-image: url(assets/art/grain_0.png)"></div>
+        <div id="g1" class="grain" style="background-image: url(assets/art/grain_1.png)"></div>
+        <div id="g2" class="grain" style="background-image: url(assets/art/grain_2.png)"></div>
+        <div id="g3" class="grain" style="background-image: url(assets/art/grain_3.png)"></div>
+        <div id="fx-vig"></div>
+        <div id="fade-end"></div>
+      </div>
+
+      <audio id="soundtrack" src="audio/mix.wav" data-start="0" data-duration="160.1" data-track-index="30" data-volume="1"></audio>
+    </div>
+
+    <script>
+      (function () {
+        const $ = (s) => document.querySelector(s);
+        let seed = 41;
+        const rnd = () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296);
+        const tl = gsap.timeline({ paused: true });
+
+        // ---- measured musical grid (see README in conversation): first downbeat 17.04s, 120.3 BPM
+        const HIT = 511 / 30; // frame 511 = 17.0333s, nearest frame to the measured downbeat (17.040s)
+        const BEAT = 0.49887;
+        const B = (k) => +(17.04 + k * BEAT).toFixed(3);
+
+        // ---------------- drawing helpers (SVG strings) ----------------
+        const mtn = (opts = {}) => {
+          const o = Object.assign({ y: 0, far: 1, mid: 1, near: 1, mist: 0.9, id: "" }, opts);
+          return `<div class="full mtn" id="${o.id}">
+            <img class="layer m-far" src="assets/art/mtn_far.png" alt="" style="width:2600px;height:1080px;top:${o.y - 60}px;opacity:${o.far}" />
+            <img class="layer m-mist1" src="assets/art/mist.png" alt="" style="width:2600px;height:700px;top:${o.y + 120}px;opacity:${o.mist * 0.8}" />
+            <img class="layer m-mid" src="assets/art/mtn_mid.png" alt="" style="width:2600px;height:1080px;top:${o.y + 20}px;opacity:${o.mid}" />
+            <img class="layer m-mist2" src="assets/art/mist.png" alt="" style="width:2600px;height:700px;top:${o.y + 330}px;opacity:${o.mist}" />
+            <img class="layer m-near" src="assets/art/mtn_near.png" alt="" style="width:2600px;height:1080px;top:${o.y + 140}px;opacity:${o.near}" />
+          </div>`;
+        };
+        const dropDefs = (id) => `<radialGradient id="${id}" cx="35%" cy="32%" r="70%"><stop offset="0" stop-color="#dfe8e6"/><stop offset="0.45" stop-color="#93acaf"/><stop offset="1" stop-color="#4f6a6e"/></radialGradient>`;
+        const leaf = (id, x, y, s, rot) => `<g id="${id}" transform="translate(${x} ${y}) rotate(${rot}) scale(${s})">
+            <path d="M0 0 C 140 -80 330 -60 470 30 C 330 100 140 90 0 0 Z" fill="url(#leafg)" opacity="0.92"/>
+            <path d="M0 0 C 160 10 320 20 470 30" stroke="#3d4a40" stroke-width="3" fill="none" opacity="0.7"/>
+            ${[80, 160, 240, 320].map((u) => `<path d="M${u} ${u * 0.06} q 40 -40 90 -46" stroke="#3d4a40" stroke-width="2" fill="none" opacity="0.45"/><path d="M${u} ${u * 0.06} q 40 34 90 40" stroke="#3d4a40" stroke-width="2" fill="none" opacity="0.4"/>`).join("")}
+          </g>`;
+        const leafDefs = `<linearGradient id="leafg" x1="0" y1="0" x2="1" y2="0.3"><stop offset="0" stop-color="#4f5f50"/><stop offset="0.6" stop-color="#7e8b7a"/><stop offset="1" stop-color="#a7b3a1"/></linearGradient>`;
+
+        // Zhejiang-style dwelling: white wall, dark tiles, stepped horse-head gables (stylized, not a specific building)
+        const house = (x, y, w, h, opts = {}) => {
+          const roofH = h * 0.16, step = w * 0.12;
+          const lamp = opts.lamp ? `<circle class="${opts.lamp}" cx="${x + w * 0.5}" cy="${y + h * 0.52}" r="60" fill="url(#lampg)" opacity="0"/>` : "";
+          const door = `<rect x="${x + w * 0.42}" y="${y + h * 0.58}" width="${w * 0.16}" height="${h * 0.42}" fill="#2e2f2d"/>`;
+          const gable = (gx, dir) => `<path d="M${gx} ${y + h * 0.1} v ${-roofH} h ${dir * step} v ${-roofH * 0.7} h ${dir * step} v ${-roofH * 0.6} h ${dir * step * 0.6} v ${roofH * 2.3 + h * 0.1}Z" fill="#f6f3ea" stroke="#9a9a92" stroke-width="2"/>
+              <path d="M${gx - dir * 6} ${y + h * 0.1 - roofH} h ${dir * (step + 12)} M${gx + dir * step - dir * 6} ${y + h * 0.1 - roofH * 1.7} h ${dir * (step + 12)} M${gx + dir * step * 2 - dir * 6} ${y + h * 0.1 - roofH * 2.3} h ${dir * (step * 0.6 + 12)}" stroke="#2b2c2b" stroke-width="10" stroke-linecap="round"/>`;
+          return `<g class="house">
+            ${gable(x, 1)}${gable(x + w, -1)}
+            <rect x="${x}" y="${y + h * 0.1}" width="${w}" height="${h * 0.9}" fill="#f6f3ea" stroke="#a7a69e" stroke-width="2"/>
+            <path d="M${x - 20} ${y + h * 0.22} L${x + w * 0.5} ${y + h * 0.1} L${x + w + 20} ${y + h * 0.22} Z" fill="#3a3c3b"/>
+            <rect x="${x - 20}" y="${y + h * 0.22}" width="${w + 40}" height="10" fill="#2a2b2a"/>
+            <rect x="${x + w * 0.15}" y="${y + h * 0.38}" width="${w * 0.12}" height="${h * 0.12}" fill="#4a4c4a"/>
+            <rect x="${x + w * 0.73}" y="${y + h * 0.38}" width="${w * 0.12}" height="${h * 0.12}" fill="#4a4c4a"/>
+            ${door}${lamp}
+            <rect x="${x}" y="${y + h * 0.86}" width="${w}" height="${h * 0.14}" fill="#c9c7bd" opacity="0.6"/>
+          </g>`;
+        };
+        const lampDefs = `<radialGradient id="lampg"><stop offset="0" stop-color="#ffe2a6" stop-opacity="1"/><stop offset="0.25" stop-color="#e3b565" stop-opacity="0.8"/><stop offset="1" stop-color="#e3b565" stop-opacity="0"/></radialGradient>`;
+        const person = (x, y, s, opts = {}) => `<g transform="translate(${x} ${y}) scale(${s})" class="${opts.cls || ""}" fill="${opts.fill || "#2a2b29"}">
+            <circle cx="0" cy="-150" r="20"/>
+            <path d="M-26 -126 Q0 -136 26 -126 L32 -40 L18 -40 L14 0 L4 0 L0 -40 L-4 0 L-14 0 L-18 -40 L-32 -40 Z"/>
+            ${opts.bag ? `<rect x="36" y="-46" width="40" height="46" rx="6"/><rect x="50" y="-60" width="12" height="16" rx="3" fill="none" stroke="${opts.fill || "#2a2b29"}" stroke-width="4"/>` : ""}
+          </g>`;
+
+        // ---------------- scenes ----------------
+        const SC = [];
+        const scene = (id, start, end, html, bg = "") => {
+          SC.push({ id, start, end });
+          const el = document.createElement("section");
+          el.className = "scene clip";
+          el.id = id;
+          el.setAttribute("data-start", start);
+          el.setAttribute("data-duration", +(end - start).toFixed(3));
+          el.setAttribute("data-track-index", String(SC.length));
+          el.innerHTML = `<div class="inner" id="${id}-in" ${bg ? `style="background:${bg}"` : ""}>${html}</div>`;
+          $("#scenes").appendChild(el);
+        };
+        const fadeIn = (id, at, d = 0.6) => tl.fromTo(`#${id}-in`, { opacity: 0 }, { opacity: 1, duration: d, ease: "sine.inOut" }, at);
+
+        // S0 — night train window (0–4.5)
+        const lights = Array.from({ length: 16 }, (_, i) => ({ y: 300 + rnd() * 420, r: 6 + rnd() * 22, sp: 0.5 + rnd() * 1.2, x0: 1900 + rnd() * 1400, a: 0.35 + rnd() * 0.5 }));
+        scene("s0", 0, 4.6, `
+          <div class="full" style="background:linear-gradient(180deg,#101418,#1b2126 60%,#23292c)"></div>
+          <div class="full" id="s0-cam">
+            <div class="full" id="s0-lights">${lights.map((l, i) => `<div class="layer s0-l" id="s0-l${i}" style="top:${l.y}px;left:0;width:${l.r * 4}px;height:${l.r * 4}px;border-radius:50%;background:radial-gradient(circle,rgba(240,196,120,${l.a}) 0%,rgba(240,196,120,0) 65%)"></div>`).join("")}</div>
+            <svg class="full" viewBox="0 0 1920 1080">
+              <defs>${dropDefs("dg0")}</defs>
+              <rect x="300" y="170" width="1320" height="700" rx="70" fill="none" stroke="#0b0d0f" stroke-width="70"/>
+              <rect x="300" y="170" width="1320" height="700" rx="70" fill="none" stroke="#2c3236" stroke-width="6" opacity="0.8"/>
+              <g id="s0-drop"><ellipse cx="1180" cy="440" rx="20" ry="24" fill="url(#dg0)" opacity="0.9"/><ellipse cx="1173" cy="432" rx="5" ry="7" fill="#fff" opacity="0.7"/></g>
+              <path id="s0-trail" d="M1180 300 L1180 418" stroke="#9fb2b6" stroke-width="3" opacity="0.25"/>
+              <g id="s0-person" fill="#07090a"><circle cx="520" cy="770" r="70"/><path d="M380 1080 Q 400 860 520 850 Q 650 860 680 1080 Z"/></g>
+            </svg>
+          </div>`);
+        lights.forEach((l, i) => tl.fromTo(`#s0-l${i}`, { x: l.x0 }, { x: l.x0 - 4.6 * 900 * l.sp, duration: 4.6, ease: "none" }, 0));
+        tl.fromTo("#s0-in", { opacity: 0 }, { opacity: 1, duration: 1.2, ease: "sine.out" }, 0)
+          .fromTo("#s0-drop", { y: -60 }, { y: 0, duration: 3.2, ease: "sine.out" }, 0.2)
+          .fromTo("#s0-cam", { scale: 1 }, { scale: 1.06, duration: 3.4, ease: "none", transformOrigin: "1180px 440px" }, 0)
+          .to("#s0-cam", { scale: 7, duration: 1.1, ease: "power2.in", transformOrigin: "1180px 440px" }, 3.45);
+
+        // S1 — dew on a leaf, falls, becomes a stream (4.0–7.5)
+        scene("s1", 4.0, 7.6, `
+          <div class="paperbg"></div>
+          ${mtn({ y: 120, far: 0.55, mid: 0.35, near: 0, mist: 0.9, id: "s1-mtn" })}
+          <svg class="full" viewBox="0 0 1920 1080">
+            <defs>${dropDefs("dg1")}${leafDefs}</defs>
+            ${leaf("s1-leaf", 520, 400, 1.0, 4)}
+            <g id="s1-drop"><circle cx="990" cy="452" r="16" fill="url(#dg1)"/><circle cx="985" cy="446" r="4" fill="#fff" opacity="0.8"/></g>
+            <path d="M900 790 C 1150 800 1250 770 1400 782 S 1700 826 1960 792 L1960 840 C 1700 870 1400 830 1250 822 S 1000 820 900 810Z" fill="#a9bdb8" opacity="0.3"/>
+            <ellipse id="s1-rip1" cx="990" cy="800" rx="90" ry="16" fill="none" stroke="#5d7b80" stroke-width="3" opacity="0"/>
+            <ellipse id="s1-rip2" cx="990" cy="800" rx="90" ry="16" fill="none" stroke="#5d7b80" stroke-width="2" opacity="0"/>
+            <path id="s1-stream" d="M990 800 C 1150 805 1250 780 1400 790 S 1700 830 1960 800" fill="none" stroke="#7f9ea3" stroke-width="7" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+          </svg>`);
+        tl.fromTo("#s1-in", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "sine.inOut" }, 4.0)
+          .fromTo("#s1-drop", { scale: 0.4, svgOrigin: "990 452" }, { scale: 1.2, duration: 1.3, ease: "sine.out" }, 4.0)
+          .to("#s1-drop", { y: 340, duration: 0.5, ease: "power2.in" }, 5.4)
+          .to("#s1-drop", { opacity: 0, duration: 0.08 }, 5.9)
+          .fromTo("#s1-rip1", { opacity: 0.9, scale: 0.1, svgOrigin: "990 800" }, { opacity: 0, scale: 2.2, duration: 1.4, ease: "sine.out" }, 5.9)
+          .fromTo("#s1-rip2", { opacity: 0.7, scale: 0.1, svgOrigin: "990 800" }, { opacity: 0, scale: 1.6, duration: 1.4, ease: "sine.out" }, 6.1)
+          .fromTo("#s1-stream", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.5, ease: "sine.inOut" }, 6.0)
+          .fromTo("#s1-mtn", { x: 0 }, { x: -60, duration: 3.6, ease: "none" }, 4.0);
+
+        // S2 — stream line becomes a road; silhouettes walk toward a city (7.0–10.5)
+        const skyline = (x0, y0, n, hmax, fill, win) =>
+          Array.from({ length: n }, (_, i) => {
+            const w = 50 + rnd() * 70, h = 60 + rnd() * hmax, x = x0 + i * 62;
+            let ws = "";
+            if (win) for (let r = 0; r < Math.floor(h / 26); r++) for (let c = 0; c < Math.floor(w / 22); c++) if (rnd() < 0.35) ws += `<rect class="${win}" x="${x + 6 + c * 22}" y="${y0 - h + 10 + r * 26}" width="8" height="12" fill="#e3b565" opacity="0"/>`;
+            return `<rect x="${x}" y="${y0 - h}" width="${w}" height="${h}" fill="${fill}"/>${ws}`;
+          }).join("");
+        scene("s2", 7.0, 10.6, `
+          <div class="paperbg"></div>
+          <svg class="full" viewBox="0 0 1920 1080">
+            <g id="s2-city" opacity="0.75">${skyline(1180, 560, 11, 220, "#8f9592", "")}</g>
+            <rect x="0" y="555" width="1920" height="6" fill="#a9aea8" opacity="0.6"/>
+            <path id="s2-river" d="M-40 800 C 300 790 600 700 860 640 S 1240 575 1470 562" fill="none" stroke="#7f9ea3" stroke-width="7" stroke-linecap="round"/>
+            <path id="s2-road" d="M-40 1000 L 1470 562 L 1500 562 L 700 1080 Z" fill="#cfcbc0" opacity="0"/>
+            <path id="s2-mid" d="M330 1080 L 1485 562" stroke="#f3ede1" stroke-width="6" stroke-dasharray="30 30" opacity="0"/>
+            <g id="s2-people" opacity="0">${person(640, 900, 0.8, { cls: "p1" })}${person(760, 860, 0.62, { cls: "p2" })}${person(930, 800, 0.46, { cls: "p3" })}${person(1040, 760, 0.36, { cls: "p4" })}</g>
+          </svg>`);
+        tl.fromTo("#s2-in", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "sine.inOut" }, 7.0)
+          .fromTo("#s2-road", { opacity: 0 }, { opacity: 0.85, duration: 1.0, ease: "sine.inOut" }, 7.5)
+          .to("#s2-river", { opacity: 0.25, duration: 1.0 }, 7.6)
+          .fromTo("#s2-mid", { opacity: 0 }, { opacity: 0.9, duration: 0.8 }, 8.0)
+          .fromTo("#s2-people", { opacity: 0, x: -40 }, { opacity: 1, x: 40, duration: 3.0, ease: "none" }, 7.6)
+          .fromTo("#s2-city", { opacity: 0.2 }, { opacity: 0.75, duration: 2.4 }, 7.4)
+          .fromTo("#s2-in", { scale: 1 }, { scale: 1.05, duration: 3.6, ease: "none", transformOrigin: "1470px 562px" }, 7.0);
+
+        // S3 — paper: river and road run side by side to a small lamp (10.0–13.5)
+        scene("s3", 10.0, 13.6, `
+          <div class="paperbg"></div>
+          <svg class="full" viewBox="0 0 1920 1080">
+            <defs>${lampDefs}</defs>
+            <path id="s3-river" d="M80 700 C 400 620 560 760 860 640 S 1300 520 1560 500" fill="none" stroke="#7f9ea3" stroke-width="10" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+            <path id="s3-road" d="M80 760 C 420 700 600 820 900 700 S 1320 560 1560 520" fill="none" stroke="#3a3d3b" stroke-width="3" stroke-dasharray="14 10" pathLength="1" opacity="0.8"/>
+            <rect id="s3-roadmask" x="0" y="0" width="1920" height="1080" fill="#f3ede1" opacity="0"/>
+            <circle id="s3-lamp" cx="1580" cy="505" r="70" fill="url(#lampg)" opacity="0"/>
+            <circle id="s3-lampdot" cx="1580" cy="505" r="6" fill="#f2cf8a" opacity="0"/>
+          </svg>
+          <div class="full" id="s3-roadwipe" style="background:linear-gradient(90deg,rgba(243,237,225,0) 0%,#f3ede1 6%,#f3ede1 100%)"></div>`);
+        tl.fromTo("#s3-in", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 10.0)
+          .fromTo("#s3-river", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 2.4, ease: "sine.inOut" }, 10.1)
+          .fromTo("#s3-roadwipe", { x: 0 }, { x: 1800, duration: 2.4, ease: "sine.inOut" }, 10.1)
+          .fromTo(["#s3-lamp", "#s3-lampdot"], { opacity: 0 }, { opacity: 1, duration: 0.8, ease: "sine.out" }, 12.0)
+          .fromTo("#s3-in > svg", { x: 60 }, { x: -60, duration: 3.6, ease: "none" }, 10.0);
+
+        // S4 — back to a single drop, mountains reflected inside (13.0–16.5)
+        scene("s4", 13.0, 16.5, `
+          <div class="paperbg"></div>
+          <div id="s4-drop" style="left:760px;top:340px;width:400px;height:400px;border-radius:50%;overflow:hidden;position:absolute;background:radial-gradient(circle at 38% 32%,#e6ecea 0%,#b8c8c8 40%,#7f9ea3 100%);box-shadow:0 30px 60px rgba(60,70,70,0.25)">
+            <img class="layer" src="assets/art/mtn_far.png" alt="" style="width:900px;height:374px;left:-250px;top:40px;opacity:0.55;transform:scaleY(-1)" />
+            <img class="layer" src="assets/art/mtn_mid.png" alt="" style="width:900px;height:374px;left:-300px;top:70px;opacity:0.5;transform:scaleY(-1)" />
+            <div class="layer" style="left:70px;top:40px;width:120px;height:60px;border-radius:50%;background:radial-gradient(ellipse,rgba(255,255,255,0.75),rgba(255,255,255,0))"></div>
+          </div>`);
+        tl.fromTo("#s4-in", { opacity: 0 }, { opacity: 1, duration: 0.7 }, 13.0)
+          .fromTo("#s4-drop", { scale: 0.86 }, { scale: 1.02, duration: 3.4, ease: "sine.inOut" }, 13.0);
+        // 16.4–16.9 everything recedes into dark paper; 16.9–HIT hold still
+        tl.fromTo("#blackout", { opacity: 0 }, { opacity: 0.94, duration: 0.5, ease: "sine.in" }, 16.4);
+
+        // CLIMAX at HIT (frame 511)
+        tl.set("#blackout", { opacity: 0 }, HIT)
+          .fromTo("#cx-drop", { scale: 1, opacity: 1 }, { scale: 0.2, opacity: 0, duration: 0.2, ease: "power2.out", immediateRender: false }, HIT)
+          .fromTo("#cx-ring1", { scale: 0.06, opacity: 0.95 }, { scale: 1.35, opacity: 0, duration: 2.6, ease: "expo.out", immediateRender: false }, HIT)
+          .fromTo("#cx-ring2", { scale: 0.04, opacity: 0.7 }, { scale: 0.95, opacity: 0, duration: 2.8, ease: "expo.out", immediateRender: false }, HIT + 0.12)
+          .fromTo("#cx-splash", { scale: 0.55, opacity: 0.9 }, { scale: 1, opacity: 0.28, duration: 1.4, ease: "expo.out", immediateRender: false }, HIT)
+          .fromTo("#cx-word", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none", immediateRender: false }, HIT)
+          .fromTo("#cx-word", { scale: 1.05 }, { scale: 1, duration: 0.6, ease: "expo.out", immediateRender: false }, HIT)
+          .fromTo("#cx-theme", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7, ease: "sine.out", immediateRender: false }, 17.6)
+          .to("#cx-stage", { scale: 1.018, duration: 3.2, ease: "sine.inOut" }, 17.7)
+          .to("#cx-stage", { opacity: 0, duration: 0.7, ease: "sine.inOut" }, 20.9);
+        tl.set("#cx-word", { opacity: 0 }, 0).set("#cx-theme", { opacity: 0 }, 0).set(["#cx-ring1", "#cx-ring2", "#cx-splash"], { opacity: 0 }, 0);
+
+        // S5 — the headwaters: layered hills and mist (20.9–25.9)
+        scene("s5", 20.9, 26.0, `<div class="paperbg"></div>${mtn({ y: 40, id: "s5-mtn" })}
+          <svg class="full" viewBox="0 0 1920 1080"><g id="s5-birds" stroke="#3a3d3b" stroke-width="3" fill="none" opacity="0.7">
+          ${[0, 1, 2].map((i) => `<path d="M${300 + i * 70} ${300 + i * 26} q 12 -10 24 0 q 12 -10 24 0"/>`).join("")}</g></svg>`);
+        fadeIn("s5", 20.9, 0.8);
+        tl.fromTo("#s5-mtn .m-far", { x: 0 }, { x: -120, duration: 5.1, ease: "none" }, 20.9)
+          .fromTo("#s5-mtn .m-mid", { x: 0 }, { x: -220, duration: 5.1, ease: "none" }, 20.9)
+          .fromTo("#s5-mtn .m-near", { x: -100 }, { x: -420, duration: 5.1, ease: "none" }, 20.9)
+          .fromTo("#s5-mtn .m-mist1", { x: -300 }, { x: 0, duration: 5.1, ease: "none" }, 20.9)
+          .fromTo("#s5-mtn .m-mist2", { x: 0 }, { x: -380, duration: 5.1, ease: "none" }, 20.9)
+          .fromTo("#s5-birds", { x: 0, y: 0 }, { x: 260, y: -60, duration: 5.1, ease: "none" }, 20.9);
+
+        // S6 — leaf tip → rock crack → trickle (25.4–29.9)
+        const stone = (cx, cy, rx, ry) => {
+          const n = 14;
+          const pts = Array.from({ length: n }, (_, k) => {
+            const a = (k / n) * Math.PI * 2, j = 0.78 + rnd() * 0.32;
+            return [cx + Math.cos(a) * rx * j, cy + Math.sin(a) * ry * j * (Math.sin(a) > 0 ? 0.7 : 1)];
+          });
+          const d = pts.map((p, k) => (k ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" ") + "Z";
+          const moss = Array.from({ length: 6 }, () => `<circle cx="${cx + (rnd() - 0.5) * rx * 1.4}" cy="${cy - ry * (0.3 + rnd() * 0.5)}" r="${3 + rnd() * 5}" fill="#4d5a4b" opacity="0.55"/>`).join("");
+          return `<path d="${d}" fill="url(#rockg)" stroke="#2e322f" stroke-width="3" stroke-linejoin="round" opacity="0.92"/>${moss}`;
+        };
+        const rocks = [[700, 760, 260, 110], [1330, 770, 280, 120], [420, 900, 300, 120], [1600, 920, 300, 110], [900, 1010, 260, 90], [1180, 1000, 220, 80], [160, 760, 200, 90], [1880, 760, 220, 100]].map((r) => stone(...r)).join("");
+        scene("s6", 25.4, 30.0, `<div class="paperbg"></div>
+          <svg class="full" viewBox="0 0 1920 1080">
+            <defs>${dropDefs("dg6")}${leafDefs}
+              <linearGradient id="rockg" x1="0" y1="0" x2="0.3" y2="1"><stop offset="0" stop-color="#8d948c"/><stop offset="0.55" stop-color="#5f675f"/><stop offset="1" stop-color="#3b403b"/></linearGradient></defs>
+            <g opacity="0.9">${rocks}</g>
+            <path id="s6-trickle" d="M1010 720 C 1000 800 1060 840 1040 900 S 980 1000 1010 1090" fill="none" stroke="#7f9ea3" stroke-width="9" stroke-linecap="round" stroke-dasharray="40 26"/>
+            <path d="M1010 720 C 1000 800 1060 840 1040 900 S 980 1000 1010 1090" fill="none" stroke="#c9d6d4" stroke-width="3" opacity="0.7"/>
+            ${leaf("s6-leaf", 560, 230, 1.15, 18)}
+            <g id="s6-drop"><circle cx="1015" cy="400" r="17" fill="url(#dg6)"/><circle cx="1010" cy="394" r="4" fill="#fff" opacity="0.8"/></g>
+            <ellipse id="s6-rip" cx="1012" cy="716" rx="60" ry="12" fill="none" stroke="#5d7b80" stroke-width="3" opacity="0"/>
+          </svg>`);
+        fadeIn("s6", 25.4, 0.6);
+        tl.fromTo("#s6-drop", { y: 0 }, { y: 316, duration: 0.42, ease: "power2.in" }, 26.4)
+          .to("#s6-drop", { opacity: 0, duration: 0.06 }, 26.82)
+          .fromTo("#s6-rip", { opacity: 0.9, scale: 0.2, svgOrigin: "1012 716" }, { opacity: 0, scale: 2, duration: 1.2, ease: "sine.out" }, 26.82)
+          .fromTo("#s6-trickle", { strokeDashoffset: 0 }, { strokeDashoffset: -330, duration: 4.6, ease: "none" }, 25.4)
+          .fromTo("#s6-in", { scale: 1.06 }, { scale: 1, duration: 4.6, ease: "sine.out", transformOrigin: "1010px 600px" }, 25.4);
+
+        // S7 — village: eaves drip, a stream passes the doorstep (29.4–33.9)
+        const eaveDrops = [430, 700, 1080, 1360, 1620];
+        scene("s7", 29.4, 34.0, `<div class="paperbg"></div>
+          ${mtn({ y: -120, far: 0.5, mid: 0.4, near: 0, mist: 0.8, id: "s7-mtn" })}
+          <svg class="full" viewBox="0 0 1920 1080">
+            <defs>${lampDefs}${dropDefs("dg7")}</defs>
+            <g id="s7-houses">${house(260, 380, 420, 380)}${house(780, 340, 480, 420)}${house(1360, 390, 400, 370)}</g>
+            <rect x="0" y="780" width="1920" height="40" fill="#b8b5aa" opacity="0.8"/>
+            ${[...Array(12)].map((_, i) => `<rect x="${60 + i * 160}" y="790" width="120" height="22" rx="4" fill="#8d8b82" opacity="0.7"/>`).join("")}
+            <path d="M0 860 C 400 840 900 880 1920 850 L1920 1080 L0 1080 Z" fill="#9db3b4" opacity="0.6"/>
+            <g id="s7-flow" stroke="#e8eeec" stroke-width="3" opacity="0.8" fill="none">${[...Array(10)].map((_, i) => `<path d="M${i * 220} ${900 + (i % 3) * 40} q 40 -6 80 0"/>`).join("")}</g>
+            ${eaveDrops.map((x, i) => `<g class="s7-d" id="s7-d${i}"><circle cx="${x}" cy="${i % 2 ? 470 : 500}" r="7" fill="url(#dg7)"/></g>`).join("")}
+          </svg>`);
+        fadeIn("s7", 29.4, 0.6);
+        eaveDrops.forEach((x, i) => tl.fromTo(`#s7-d${i}`, { y: 0, opacity: 1 }, { y: 300, opacity: 0.2, duration: 0.7, ease: "power2.in", repeat: 4, repeatDelay: 0.3 + i * 0.07 }, 29.6 + i * 0.23));
+        tl.fromTo("#s7-flow", { x: 0 }, { x: 240, duration: 4.6, ease: "none" }, 29.4)
+          .fromTo("#s7-in > svg", { x: 0 }, { x: -50, duration: 4.6, ease: "none" }, 29.4);
+
+        // S8 — the path home, a door, a lamp (33.4–41.9)
+        scene("s8", 33.4, 42.0, `<div class="paperbg"></div>
+          ${mtn({ y: -60, far: 0.6, mid: 0.7, near: 0.0, mist: 0.9, id: "s8-mtn" })}
+          <div class="full" id="s8-dusk" style="background:linear-gradient(180deg,rgba(120,110,100,0) 0%,rgba(90,84,80,0.35) 100%);opacity:0"></div>
+          <svg class="full" viewBox="0 0 1920 1080">
+            <defs>${lampDefs}</defs>
+            <path id="s8-path" d="M200 1100 C 500 980 380 880 700 820 S 1000 700 1240 640" fill="none" stroke="#bcb7a8" stroke-width="70" stroke-linecap="round" opacity="0.9"/>
+            <path d="M200 1100 C 500 980 380 880 700 820 S 1000 700 1240 640" fill="none" stroke="#8a867b" stroke-width="76" opacity="0.18"/><path d="M200 1100 C 500 980 380 880 700 820 S 1000 700 1240 640" fill="none" stroke="#e4dfd2" stroke-width="40" opacity="0.7"/>
+            ${house(1160, 330, 420, 360, { lamp: "s8-lamp" })}
+            ${person(560, 930, 0.72, { cls: "s8-p" })}
+          </svg>`);
+        fadeIn("s8", 33.4, 0.6);
+        tl.fromTo("#s8-in", { scale: 1 }, { scale: 1.08, duration: 8.6, ease: "none", transformOrigin: "1300px 600px" }, 33.4)
+          .fromTo("#s8-dusk", { opacity: 0 }, { opacity: 1, duration: 4, ease: "sine.inOut" }, 35.5)
+          .fromTo(".s8-lamp", { opacity: 0 }, { opacity: 1, duration: 1.2, ease: "sine.out" }, B(41))
+          .fromTo(".s8-p", { x: 0, y: 0 }, { x: 260, y: -90, duration: 7, ease: "none" }, 33.6)
+          .to(".s8-p", { opacity: 0, duration: 1.2 }, 40.2);
+
+        // S9 — breathing room: wide hills, river, mist (41.5–50.0) — no subtitle
+        scene("s9", 41.5, 50.1, `<div class="paperbg"></div>${mtn({ y: -20, id: "s9-mtn" })}
+          <svg class="full" viewBox="0 0 1920 1080"><path d="M-40 980 C 500 900 900 960 1300 900 S 1800 880 1980 860 L1980 1080 L-40 1080Z" fill="#a8bcbc" opacity="0.55"/>
+          <g id="s9-birds" stroke="#3a3d3b" stroke-width="3" fill="none" opacity="0.6">${[0, 1, 2, 3].map((i) => `<path d="M${1300 + i * 60} ${260 + (i % 2) * 30} q 10 -9 20 0 q 10 -9 20 0"/>`).join("")}</g></svg>`);
+        fadeIn("s9", 41.5, 0.8);
+        tl.fromTo("#s9-mtn .m-far", { x: -200 }, { x: -60, duration: 8.6, ease: "none" }, 41.5)
+          .fromTo("#s9-mtn .m-mid", { x: -380 }, { x: -120, duration: 8.6, ease: "none" }, 41.5)
+          .fromTo("#s9-mtn .m-near", { x: -600 }, { x: -200, duration: 8.6, ease: "none" }, 41.5)
+          .fromTo("#s9-mtn .m-mist2", { x: -500 }, { x: 0, duration: 8.6, ease: "none" }, 41.5)
+          .fromTo("#s9-birds", { x: 0, y: 0 }, { x: -520, y: -40, duration: 8.6, ease: "none" }, 41.5);
+
+        // S10 — streams converge and the river widens, flowing east (49.5–58.4)
+        scene("s10", 49.5, 58.5, `<div class="paperbg"></div>
+          <svg class="full" viewBox="0 0 1920 1080">
+            <g fill="none" stroke="#7f9ea3" stroke-linecap="round">
+              <path class="s10-s" d="M-20 160 C 300 220 420 360 700 470" stroke-width="5" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+              <path class="s10-s" d="M-20 420 C 260 430 460 470 700 490" stroke-width="6" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+              <path class="s10-s" d="M-20 760 C 300 700 480 560 700 510" stroke-width="5" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+              <path class="s10-s" d="M200 1100 C 360 820 520 600 700 520" stroke-width="4" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+              <path id="s10-river" d="M700 495 C 1000 520 1200 600 1480 560 S 1800 520 1990 540" stroke-width="16" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+            </g>
+            <g id="s10-banks" opacity="0">${[...Array(40)].map((_, i) => { const x = 760 + i * 32; const y = 470 + Math.sin(i * 0.4) * 30 - (i * 1.2); return `<circle cx="${x}" cy="${y - 40 - rnd() * 30}" r="${4 + rnd() * 6}" fill="#58665a" opacity="0.6"/><circle cx="${x}" cy="${y + 140 + rnd() * 30}" r="${4 + rnd() * 6}" fill="#58665a" opacity="0.6"/>`; }).join("")}</g>
+          </svg>`);
+        fadeIn("s10", 49.5, 0.6);
+        tl.fromTo(".s10-s", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 2.6, ease: "sine.inOut", stagger: 0.25 }, 49.7)
+          .fromTo("#s10-river", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 3.2, ease: "sine.inOut" }, 52.0)
+          .to("#s10-river", { attr: { "stroke-width": 60 }, duration: 3.6, ease: "sine.inOut" }, 54.0)
+          .fromTo("#s10-banks", { opacity: 0 }, { opacity: 1, duration: 2 }, 53.6)
+          .fromTo("#s10-in > svg", { x: 0 }, { x: -140, duration: 9, ease: "none" }, 49.5);
+
+        // S11 — departure across the stone bridge (57.9–62.4)
+        scene("s11", 57.9, 62.5, `<div class="paperbg"></div>${mtn({ y: -40, far: 0.6, mid: 0.6, near: 0, mist: 0.9, id: "s11-mtn" })}
+          <svg class="full" viewBox="0 0 1920 1080">
+            <path d="M0 860 C 600 830 1300 870 1920 840 L1920 1080 L0 1080Z" fill="#9db3b4" opacity="0.65"/>
+            <path d="M560 860 Q 960 560 1360 860" fill="none" stroke="#6b6e68" stroke-width="40"/>
+            <path d="M520 860 L 560 860 Q 960 600 1360 860 L 1400 860 L 1400 880 L 520 880Z" fill="#8d8f88"/>
+            <path d="M700 860 Q 960 720 1220 860" fill="#f3ede1" opacity="0.85"/>
+            <path d="M700 870 Q 960 1000 1220 870" fill="none" stroke="#6b6e68" stroke-width="6" opacity="0.4"/>
+            <g id="s11-p"><g id="s11-pb">${person(0, 0, 0.75, { bag: true })}</g></g>
+          </svg>`);
+        fadeIn("s11", 57.9, 0.6);
+        tl.fromTo("#s11-p", { x: 640, y: 830 }, { x: 1260, y: 830, duration: 4.4, ease: "none" }, 58.0)
+          .fromTo("#s11-pb", { y: 0 }, { y: -130, duration: 2.2, ease: "sine.out", yoyo: true, repeat: 1 }, 58.0);
+
+        // S12 — the stream's bend becomes a road's bend, seen through a bus window (61.9–66.4)
+        scene("s12", 61.9, 66.5, `<div class="paperbg"></div>
+          <svg class="full" viewBox="0 0 1920 1080">
+            <path id="s12-stream" d="M-40 760 C 400 760 700 420 1100 460 S 1700 700 1980 640" fill="none" stroke="#7f9ea3" stroke-width="14" stroke-linecap="round"/>
+            <g id="s12-road" opacity="0"><path d="M-40 760 C 400 760 700 420 1100 460 S 1700 700 1980 640" fill="none" stroke="#9c9a92" stroke-width="90"/>
+            <path d="M-40 760 C 400 760 700 420 1100 460 S 1700 700 1980 640" fill="none" stroke="#f3ede1" stroke-width="5" stroke-dasharray="40 40" id="s12-dash"/></g>
+          </svg>
+          <div class="full" id="s12-window" style="opacity:0">
+            <svg class="full" viewBox="0 0 1920 1080"><path d="M0 0 H1920 V1080 H0Z M180 160 Q180 120 220 120 H1700 Q1740 120 1740 160 V880 Q1740 920 1700 920 H220 Q180 920 180 880Z" fill="#3b3e3d" fill-rule="evenodd"/>
+            <rect x="180" y="120" width="1560" height="800" rx="40" fill="url(#glassg)"/>
+            <defs><linearGradient id="glassg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity="0.18"/><stop offset="0.5" stop-color="#ffffff" stop-opacity="0"/><stop offset="1" stop-color="#ffffff" stop-opacity="0.12"/></linearGradient></defs></svg>
+          </div>`);
+        fadeIn("s12", 61.9, 0.6);
+        tl.fromTo("#s12-road", { opacity: 0 }, { opacity: 1, duration: 0.7, ease: "sine.inOut" }, B(90))
+          .to("#s12-stream", { opacity: 0, duration: 0.7 }, B(90))
+          .fromTo("#s12-dash", { strokeDashoffset: 0 }, { strokeDashoffset: -800, duration: 4.4, ease: "none" }, 62.0)
+          .fromTo("#s12-window", { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 0.8, ease: "sine.out" }, 64.0)
+          .fromTo("#s12-in > svg", { x: 0 }, { x: -120, duration: 4.6, ease: "none" }, 61.9);
+
+        // S13 — the city: windows, subway, work, a dinner alone (65.9–79.9)
+        scene("s13", 65.9, 80.0, `
+          <svg class="full" viewBox="0 0 1920 1080">
+            <defs><linearGradient id="skyg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a1f26"/><stop offset="1" stop-color="#3a3f45"/></linearGradient>${lampDefs}</defs>
+            <rect width="1920" height="1080" fill="url(#skyg)"/>
+            <g id="s13-far" opacity="0.7">${skyline(-40, 760, 34, 360, "#2b3138", "w1")}</g>
+            <g id="s13-near">${skyline(-60, 900, 34, 460, "#20252b", "w2")}</g>
+            <rect x="0" y="834" width="1920" height="14" fill="#2c3238"/><rect x="0" y="900" width="1920" height="180" fill="#15191d"/>
+            <g id="s13-train">${[...Array(6)].map((_, i) => `<rect x="${i * 260}" y="770" width="240" height="64" rx="12" fill="#3b434b"/>${[...Array(5)].map((_, j) => `<rect x="${i * 260 + 16 + j * 44}" y="782" width="30" height="24" fill="#e3b565" opacity="0.65"/>`).join("")}`).join("")}</g>
+          </svg>
+          <div class="full" id="s13-room" style="opacity:0">
+            <svg class="full" viewBox="0 0 1920 1080">
+              <rect width="1920" height="1080" fill="#1d2126"/>
+              <rect x="220" y="140" width="980" height="620" fill="#2c333b"/>
+              <g opacity="0.8">${skyline(220, 760, 15, 360, "#1f252c", "w3")}</g>
+              <rect x="220" y="140" width="980" height="620" fill="none" stroke="#111417" stroke-width="30"/>
+              <rect x="0" y="760" width="1920" height="320" fill="#24282c"/>
+              <circle cx="1460" cy="600" r="260" fill="url(#lampg)" opacity="0.5"/>
+              <g fill="#0d0f11"><circle cx="1380" cy="560" r="56"/><path d="M1270 900 Q 1280 660 1380 640 Q 1490 660 1500 900Z"/></g>
+              <ellipse cx="1240" cy="770" rx="70" ry="18" fill="#c9c3b6"/><path d="M1170 770 Q 1240 830 1310 770" fill="#e8e2d4"/>
+            </g>
+          </div>`, "#1a1f26");
+        fadeIn("s13", 65.9, 0.6);
+        tl.to(".w1", { opacity: 0.7, duration: 0.4, stagger: { each: 0.012, from: "random" } }, 66.2)
+          .to(".w2", { opacity: 0.85, duration: 0.4, stagger: { each: 0.01, from: "random" } }, 66.6)
+          .fromTo("#s13-train", { x: 1920 }, { x: -1700, duration: 4, ease: "none" }, 70.0)
+          .fromTo("#s13-far", { x: 0 }, { x: -60, duration: 8, ease: "none" }, 65.9)
+          .fromTo("#s13-near", { x: 0 }, { x: -140, duration: 8, ease: "none" }, 65.9)
+          .fromTo("#s13-room", { opacity: 0 }, { opacity: 1, duration: 0.7, ease: "sine.inOut" }, B(113))
+          .to(".w3", { opacity: 0.6, duration: 0.3, stagger: { each: 0.01, from: "random" } }, B(113))
+          .fromTo("#s13-room", { scale: 1.04 }, { scale: 1, duration: 6, ease: "sine.out", immediateRender: false }, B(113));
+
+        // S14 — rain on the window; a glass of water trembles (79.4–94.4)
+        const rain = Array.from({ length: 70 }, () => ({ x: rnd() * 1920, len: 30 + rnd() * 60, sp: 0.5 + rnd() * 0.5, d: rnd() }));
+        scene("s14", 79.4, 94.5, `
+          <svg class="full" viewBox="0 0 1920 1080">
+            <rect width="1920" height="1080" fill="#2a3036"/>
+            ${[...Array(18)].map(() => `<circle cx="${rnd() * 1920}" cy="${200 + rnd() * 600}" r="${20 + rnd() * 50}" fill="#e3b565" opacity="${0.06 + rnd() * 0.1}"/>`).join("")}
+            <g id="s14-rain" stroke="#b9c6c8" stroke-width="2" opacity="0.5">${rain.map((r, i) => `<line class="rn" id="rn${i}" x1="${r.x}" y1="0" x2="${r.x - 6}" y2="${r.len}"/>`).join("")}</g>
+          </svg>
+          <div class="full" id="s14-cup" style="opacity:0">
+            <svg class="full" viewBox="0 0 1920 1080">
+              <rect width="1920" height="1080" fill="#30363b"/>
+              <rect x="0" y="720" width="1920" height="360" fill="#3d3a36"/>
+              <path d="M760 360 L 820 820 Q 960 850 1100 820 L 1160 360" fill="#c4d0cf" opacity="0.25" stroke="#d8dfdc" stroke-width="4"/>
+              <ellipse cx="960" cy="470" rx="194" ry="34" fill="#a9bdb8" opacity="0.7"/>
+              <ellipse class="cr" cx="960" cy="470" rx="190" ry="32" fill="none" stroke="#eef3f1" stroke-width="3" opacity="0"/>
+              <ellipse class="cr" cx="960" cy="470" rx="190" ry="32" fill="none" stroke="#eef3f1" stroke-width="2" opacity="0"/>
+              <ellipse class="cr" cx="960" cy="470" rx="190" ry="32" fill="none" stroke="#eef3f1" stroke-width="2" opacity="0"/>
+              <ellipse cx="960" cy="360" rx="200" ry="30" fill="none" stroke="#d8dfdc" stroke-width="4" opacity="0.6"/>
+            </svg>
+          </div>`, "#2a3036");
+        fadeIn("s14", 79.4, 0.7);
+        rain.forEach((r, i) => tl.fromTo(`#rn${i}`, { y: -120 - r.d * 900 }, { y: 1200, duration: 1.4 / r.sp, ease: "none", repeat: Math.floor(9 * r.sp), delay: 0 }, 79.4 + r.d * 0.8));
+        tl.fromTo("#s14-cup", { opacity: 0 }, { opacity: 1, duration: 0.7, ease: "sine.inOut" }, B(143) - 0.3)
+          .fromTo(".cr", { scale: 0.1, opacity: 0.9, svgOrigin: "960 470" }, { scale: 1, opacity: 0, duration: 1.6, ease: "sine.out", stagger: 0.35 }, 90.6)
+          .fromTo("#s14-cup", { scale: 1 }, { scale: 2.6, duration: 1.4, ease: "power2.in", transformOrigin: "960px 470px", immediateRender: false }, 92.6);
+
+        // S15 — memory returns: ripples become the home stream; eaves, door, lamp (93.6–112.9)
+        scene("s15", 93.6, 113.0, `<div class="paperbg"></div>
+          ${mtn({ y: -160, far: 0.55, mid: 0.45, near: 0, mist: 0.8, id: "s15-mtn" })}
+          <div class="full" id="s15-pan" style="width:3600px">
+            <svg viewBox="0 0 3600 1080" style="position:absolute;left:0;top:0;width:3600px;height:1080px">
+              <defs>${lampDefs}${dropDefs("dg15")}</defs>
+              ${house(240, 360, 440, 400)}${house(820, 320, 500, 440, { lamp: "s15-lampA" })}${house(1480, 380, 420, 380)}
+              ${house(2140, 330, 480, 430, { lamp: "s15-lampB" })}${house(2780, 370, 420, 390)}
+              <rect x="0" y="780" width="3600" height="40" fill="#b8b5aa" opacity="0.8"/>
+              <path d="M0 860 C 700 840 1500 880 3600 850 L3600 1080 L0 1080 Z" fill="#9db3b4" opacity="0.6"/>
+              <g id="s15-flow" stroke="#e8eeec" stroke-width="3" opacity="0.8" fill="none">${[...Array(18)].map((_, i) => `<path d="M${i * 210} ${900 + (i % 3) * 40} q 40 -6 80 0"/>`).join("")}</g>
+              ${[...Array(5)].map((_, i) => `<ellipse class="s15-r" cx="${520 + i * 600}" cy="${930 + (i % 2) * 40}" rx="70" ry="12" fill="none" stroke="#eef3f1" stroke-width="3" opacity="0"/>`).join("")}
+              <g id="s15-door" transform="translate(2380 0)"><rect x="-38" y="580" width="76" height="180" fill="#ffd99a" opacity="0.9"/><rect id="s15-dl" x="-38" y="580" width="38" height="180" fill="#2e2f2d"/><rect id="s15-dr" x="0" y="580" width="38" height="180" fill="#2e2f2d"/></g>
+            </svg>
+          </div>`);
+        tl.fromTo("#s15-in", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.8, ease: "sine.out", transformOrigin: "960px 600px" }, 93.6)
+          .fromTo(".s15-r", { scale: 0.2, opacity: 0.9, transformOrigin: "50% 50%" }, { scale: 2, opacity: 0, duration: 2, ease: "sine.out", stagger: { each: 0.6, repeat: 3 } }, B(154))
+          .fromTo("#s15-pan", { x: 0 }, { x: -1700, duration: 19.4, ease: "sine.inOut" }, 93.6)
+          .fromTo("#s15-flow", { x: 0 }, { x: 420, duration: 19.4, ease: "none" }, 93.6)
+          .fromTo("#s15-dl", { scaleX: 1, transformOrigin: "0px 0px" }, { scaleX: 0.25, duration: 1.4, ease: "sine.inOut" }, 103.6)
+          .fromTo("#s15-dr", { scaleX: 1, transformOrigin: "38px 0px" }, { scaleX: 0.25, duration: 1.4, ease: "sine.inOut" }, 103.6)
+          .fromTo([".s15-lampA", ".s15-lampB"], { opacity: 0 }, { opacity: 1, duration: 1.2, ease: "sine.out" }, B(181));
+
+        // S16 — the river keeps going: dawn, wide water, a person walks on (112.4–139.4)
+        scene("s16", 112.4, 139.5, `<div class="paperbg"></div>
+          <div class="full" id="s16-sky" style="background:linear-gradient(180deg,rgba(227,181,101,0.0) 0%,rgba(227,181,101,0.28) 55%,rgba(243,237,225,0) 70%);opacity:0"></div>
+          ${mtn({ y: 60, far: 0.7, mid: 0.55, near: 0, mist: 1, id: "s16-mtn" })}
+          <svg class="full" viewBox="0 0 1920 1080">
+            <defs><linearGradient id="rivg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9d6d4" stop-opacity="0.2"/><stop offset="0.5" stop-color="#9fb6b8" stop-opacity="0.55"/><stop offset="1" stop-color="#7f9ea3" stop-opacity="0.6"/></linearGradient></defs><path d="M-80 1080 C 300 900 760 760 900 650 C 940 640 980 640 1020 650 C 1160 760 1500 880 2000 1080 Z" fill="url(#rivg)"/>
+            <g id="s16-flow" stroke="#eef3f1" stroke-width="3" fill="none" opacity="0.8">${[...Array(16)].map((_, i) => `<path d="M${880 + ((i * 37) % 160)} ${660 + i * 26} q ${30 + i * 4} 0 ${60 + i * 8} 2"/>`).join("")}</g>
+            <circle id="s16-sun" cx="960" cy="560" r="80" fill="#e3b565" opacity="0"/>
+          </svg>
+          <div class="full" id="s16-city" style="opacity:0">
+            <div class="paperbg"></div>
+            <svg class="full" viewBox="0 0 1920 1080"><g opacity="0.35">${skyline(-80, 860, 34, 520, "#c3c5bf", "")}</g><g opacity="0.55">${skyline(-40, 860, 34, 380, "#a9ada7", "")}</g><g stroke="#4a4c47" stroke-width="3" fill="none" opacity="0.5">${[0, 1, 2].map((i) => `<path d="M${1200 + i * 60} ${220 + i * 20} q 10 -9 20 0 q 10 -9 20 0"/>`).join("")}</g>
+            <rect x="0" y="860" width="1920" height="220" fill="#d8d3c6"/>
+            <g id="s16-p">${person(0, 0, 0.9, { fill: "#33342f" })}</g>
+            <circle cx="1650" cy="300" r="90" fill="#e3b565" opacity="0.35"/></svg>
+          </div>`);
+        fadeIn("s16", 112.4, 0.8);
+        tl.fromTo("#s16-sky", { opacity: 0 }, { opacity: 1, duration: 8, ease: "sine.inOut" }, 113)
+          .fromTo("#s16-sun", { opacity: 0, y: 60 }, { opacity: 0.55, y: 0, duration: 10, ease: "sine.out" }, 114)
+          .fromTo("#s16-flow", { x: 0, y: 0 }, { x: 40, y: 140, duration: 14.4, ease: "none" }, 112.4)
+          .fromTo("#s16-mtn", { scale: 1 }, { scale: 1.08, duration: 14.4, ease: "none", transformOrigin: "960px 600px" }, 112.4)
+          .fromTo("#s16-city", { opacity: 0 }, { opacity: 1, duration: 0.8, ease: "sine.inOut" }, B(219) - 0.4)
+          .fromTo("#s16-p", { x: 300, y: 852 }, { x: 1500, y: 852, duration: 12.5, ease: "none" }, 126.8);
+
+        // S17 — looking back to the source: leaf, drop, stream, a far lamp; brightening (138.9–150.9)
+        scene("s17", 138.9, 151.0, `<div class="paperbg"></div>
+          <div class="full" style="background:linear-gradient(180deg,rgba(227,181,101,0.18),rgba(243,237,225,0) 60%)"></div>
+          ${mtn({ y: 100, far: 0.6, mid: 0.5, near: 0.0, mist: 1, id: "s17-mtn" })}
+          <svg class="full" viewBox="0 0 1920 1080">
+            <defs>${dropDefs("dg17")}${leafDefs}${lampDefs}</defs>
+            ${leaf("s17-leaf", 260, 250, 1.0, 8)}
+            <g id="s17-drop"><circle cx="738" cy="318" r="14" fill="url(#dg17)"/><circle cx="734" cy="313" r="3.5" fill="#fff" opacity="0.8"/></g>
+            <path id="s17-stream" d="M740 760 C 900 760 1100 700 1300 690 S 1640 640 1700 600" fill="none" stroke="#7f9ea3" stroke-width="8" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+            <circle id="s17-lamp" cx="1710" cy="596" r="70" fill="url(#lampg)" opacity="0"/>
+          </svg>`);
+        fadeIn("s17", 138.9, 0.8);
+        tl.fromTo("#s17-drop", { y: 0 }, { y: 440, duration: 0.5, ease: "power2.in" }, 140.6)
+          .to("#s17-drop", { opacity: 0, duration: 0.06 }, 141.1)
+          .fromTo("#s17-stream", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 4.5, ease: "sine.inOut" }, 141.1)
+          .fromTo("#s17-lamp", { opacity: 0 }, { opacity: 1, duration: 1.5, ease: "sine.out" }, 144.6)
+          .fromTo("#s17-in", { scale: 1.05 }, { scale: 1, duration: 12, ease: "none", transformOrigin: "960px 540px" }, 138.9);
+
+        // S18 — title (150.4–160.1)
+        scene("s18", 150.4, 160.1, `<div class="paperbg"></div>
+          <svg class="full" viewBox="0 0 1920 1080">
+            <defs>${dropDefs("dg18")}</defs>
+            <g id="s18-drop"><circle cx="960" cy="260" r="12" fill="url(#dg18)"/></g>
+            <ellipse id="s18-r1" cx="960" cy="300" rx="120" ry="18" fill="none" stroke="#5d7b80" stroke-width="2.5" opacity="0"/>
+            <ellipse id="s18-r2" cx="960" cy="300" rx="120" ry="18" fill="none" stroke="#5d7b80" stroke-width="2" opacity="0"/>
+            <path id="s18-line" d="M300 800 C 700 780 1100 820 1620 790" fill="none" stroke="#7f9ea3" stroke-width="4" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" opacity="0.8"/>
+          </svg>
+          <div id="title-zh">一滴水的远方</div>
+          <div id="title-en">A Drop’s Journey</div>`);
+        fadeIn("s18", 150.4, 0.8);
+        tl.fromTo("#s18-drop", { y: -260, opacity: 1 }, { y: 40, duration: 0.6, ease: "power2.in" }, B(268) - 0.6)
+          .to("#s18-drop", { opacity: 0, duration: 0.06 }, B(268))
+          .fromTo("#s18-r1", { scale: 0.1, opacity: 0.9, svgOrigin: "960 300" }, { scale: 2.4, opacity: 0, duration: 2.4, ease: "sine.out" }, B(268))
+          .fromTo("#s18-r2", { scale: 0.1, opacity: 0.7, svgOrigin: "960 300" }, { scale: 1.6, opacity: 0, duration: 2.4, ease: "sine.out" }, B(268) + 0.25)
+          .fromTo("#title-zh", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.6, ease: "sine.out" }, B(268) + 0.2)
+          .fromTo("#title-en", { opacity: 0 }, { opacity: 1, duration: 1.4, ease: "sine.out" }, B(268) + 1.0)
+          .fromTo("#s18-line", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 4.5, ease: "sine.inOut" }, B(268) + 0.6)
+          .to(["#title-zh", "#title-en", "#s18-line"], { opacity: 0, duration: 2.2, ease: "sine.inOut" }, 157.4)
+          .fromTo("#fade-end", { opacity: 0 }, { opacity: 1, duration: 1.4, ease: "sine.in" }, 158.6);
+
+        // ---------------- subtitles (original copy) ----------------
+        const SUBS = [
+          [0.3, 3.9, "你已经走了很远，为什么还会想家？", "You’ve come so far. Why do you still miss home?", "dark"],
+          [4.15, 6.85, "溪水穿过群山，流向远处。", "A stream winds through the hills, toward somewhere far.", "light"],
+          [7.15, 9.85, "许多人，也走进陌生的城。", "So many of us walk into unfamiliar cities, too.", "light"],
+          [10.15, 12.85, "所以，走远为什么仍会回望？", "So why do we still look back?", "light"],
+          [13.0, 16.4, "走得再远，会忘记来处吗？", "However far we go — do we forget where we’re from?", "light"],
+          [B(9), B(16), "这里是钱塘江的源头地区。", "These are the headwaters of the Qiantang River.", "light"],
+          [B(17), B(24), "叶尖的一滴水，落进石缝。", "A drop slips from a leaf into the rocks.", "light"],
+          [B(25), B(32), "细流下山，经过屋檐和门前。", "Small streams come down, past eaves and doorsteps.", "light"],
+          [B(33), B(40), "每天都听得见，也就不觉得特别。", "You hear it every day, so it seems like nothing.", "light"],
+          [B(41), B(48), "山路尽头，家门口亮着一盏灯。", "At the end of the path, a lamp by the door.", "light"],
+          [B(65), B(72), "溪流汇在一起，河面慢慢变宽。", "Streams meet, and the river grows wider.", "light"],
+          [B(74), B(81), "水要去远方，人也一样。", "The water is heading far away. So are we.", "light"],
+          [B(82), B(89), "一只行李箱，一张车票。", "One suitcase. One ticket.", "light"],
+          [B(90), B(97), "溪流转个弯，就成了路。", "The stream bends — and becomes a road.", "light"],
+          [B(98), B(105), "城市很大，灯很多。", "The city is big. So many lights.", "dark"],
+          [B(106), B(112), "地铁、工位、外卖，日子很满。", "Subways, desks, takeout — full days.", "dark"],
+          [B(114), B(121), "也有一个人吃晚饭的时候。", "And evenings eating dinner alone.", "dark"],
+          [B(125), B(132), "窗外，下雨了。", "Outside the window, it starts to rain.", "dark"],
+          [B(134), B(141), "雨声，像极了老家屋檐下的水声。", "It sounds just like water under the eaves back home.", "dark"],
+          [B(143), B(150), "杯里的水，轻轻一晃——", "The water in the glass trembles —", "dark"],
+          [B(155), B(162), "溪声、山路、乡音，一下子都回来了。", "The stream, the path, the accent — all come back.", "light"],
+          [B(164), B(171), "原来，来处一直跟着你。", "Where you’re from has been with you all along.", "light"],
+          [B(172), B(179), "它在你的口音里，在你的习惯里。", "In the way you speak, the way you live.", "light"],
+          [B(181), B(188), "也在你想家时，想起的那盏灯里。", "In the lamp you picture when you miss home.", "light"],
+          [B(198), B(205), "水不会回头，它一直向前。", "Water never turns back. It keeps going.", "light"],
+          [B(208), B(215), "可每一条河，都记得山里的源头。", "Yet every river remembers its spring in the hills.", "light"],
+          [B(232), B(239), "走进新的城，过新的日子。", "Into new cities, into new days.", "light"],
+          [B(244), B(251), "累了的时候，就想想那条溪。", "When you’re tired, think of that stream.", "light"],
+          [B(256), B(265), "来处，是让你敢走远的地方。", "Where you’re from is what lets you go far.", "light"],
+        ];
+        const subsEl = $("#subs");
+        SUBS.forEach(([a, b, zh, en, tone], i) => {
+          const el = document.createElement("div");
+          el.className = "sub " + (tone === "dark" ? "on-dark" : "on-light");
+          el.id = "sub" + i;
+          el.innerHTML = `<div class="zh">${zh}</div><div class="en">${en}</div>`;
+          subsEl.appendChild(el);
+          tl.fromTo(el, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.45, ease: "sine.out" }, a)
+            .to(el, { opacity: 0, duration: 0.4, ease: "sine.in" }, b - 0.4);
+        });
+        // light reading band only under light-scene subtitles
+        SUBS.forEach(([a, b, , , tone]) => {
+          if (tone === "light") tl.to("#sub-band", { opacity: 1, duration: 0.45 }, a).to("#sub-band", { opacity: 0, duration: 0.4 }, b - 0.4);
+        });
+        window.__SUBS = SUBS;
+
+        // ---------------- finishing: grain flicker (4 frames cycling), stronger in dark scenes ----------------
+        // one proxy tween drives which of 4 grain plates shows; frozen during the pre-hit breath (16.9s → HIT)
+        const gp = { t: 0 };
+        const plates = [0, 1, 2, 3].map((k) => document.getElementById("g" + k));
+        tl.to(gp, {
+          t: 160.1, duration: 160.1, ease: "none",
+          onUpdate: () => {
+            let f = Math.floor(gp.t * 30 + 1e-6);
+            if (gp.t >= 16.9 && gp.t < HIT) f = Math.floor(16.9 * 30);
+            plates.forEach((p, k) => (p.style.opacity = k === f % 4 ? "0.1" : "0"));
+          },
+        }, 0);
+
+        window.__timelines["main"] = tl;
+        tl.seek(0);
+      })();
+    </script>
+  </body>
+</html>

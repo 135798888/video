@@ -1,0 +1,17 @@
+{
+  "name": "qianjiangyuan",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.8.160 preview",
+    "check": "npx --yes hyperframes@0.8.160 check",
+    "render": "npx --yes hyperframes@0.8.160 render",
+    "publish": "npx --yes hyperframes@0.8.160 publish"
+  },
+  "dependencies": {
+    "@fontsource/ma-shan-zheng": "^5.3.1",
+    "@fontsource/noto-serif-sc": "^5.3.1",
+    "@fontsource/source-serif-4": "^5.3.1",
+    "gsap": "^3.12.5"
+  }
+}
